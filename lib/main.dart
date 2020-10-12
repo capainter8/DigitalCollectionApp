@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/collection_management/CollectionManagementScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,12 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: Text("Digital Colletion App")
-        ),
-        body:new Text("Digital Collection App")
-      ),
+      home: CollectionManagementScreen(),
     );
   }
 }
