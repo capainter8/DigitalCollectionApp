@@ -17,33 +17,29 @@ class CollectionDatabase {
   static void init() {
     _collections = new List<Collection>();
 
-    // Init the database
+    // Init the database (For now just test data)
+    _collections.add(
+        Collection(
+            UniqueKey(),
+            "Old First Edition Books",
+            "Contains old first edition books, mostly american literature pre 1900's.",
+            DateTime(2019, 100)
+        )
+    );
+
+    _collections.add(
+        Collection(
+            UniqueKey(),
+            "Stamp Collection",
+            "Collection of canada post stamps.",
+            DateTime(2020, 185)
+        )
+    );
   }
 
   static Future<List<Collection>> fetchCollections() async {
 
     if (_collections == null) init();
-    // Fetch collections from the database here
-
-    // For testing - create a list of collections and return them in a future.
-
-    _collections.add(
-      Collection(
-        UniqueKey(),
-        "Old First Edition Books",
-        "Contains old first edition books, mostly american literature pre 1900's.",
-        DateTime(2019, 100)
-      )
-    );
-
-    _collections.add(
-        Collection(
-          UniqueKey(),
-          "Stamp Collection",
-          "Collection of canada post stamps.",
-          DateTime(2020, 185)
-        )
-    );
 
     return _collections;
   }
