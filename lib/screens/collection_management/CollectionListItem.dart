@@ -16,10 +16,7 @@ class CollectionListItem extends StatelessWidget {
         children: [
           Flexible (
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                textDirection: TextDirection.ltr,
                 children: [
                   Text(
                       collection.getName(),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../services/CollectionDatabase.dart';
-import '../../models/Collection.dart';
 import 'CollectionListView.dart';
 
 class CollectionManagementScreen extends StatefulWidget {
@@ -16,10 +14,14 @@ class _CollectionManagementScreen extends State<CollectionManagementScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: Text("Collections"),
       ),
       drawer: Drawer(),
       body: CollectionListView(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add)
+      )
     );
   }
 }
