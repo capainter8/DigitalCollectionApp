@@ -29,8 +29,14 @@ class _CollectionListView extends State<CollectionListView> {
         } else {
           // Wait...
         }
-        return ListView (
-          children: children,
+        return ListView.separated (
+          itemCount: children.length,
+          itemBuilder: (context, index) {
+            return children.elementAt(index);
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          },
         );
       }
     );
