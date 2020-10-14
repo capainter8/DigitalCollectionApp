@@ -15,13 +15,14 @@ class CollectionDatabase {
   static List<Collection> _collections;
 
   static void init() {
-    _collections = List<Collection>();
+    _collections = new List<Collection>();
 
     // Init the database
   }
 
   static Future<List<Collection>> fetchCollections() async {
 
+    if (_collections == null) init();
     // Fetch collections from the database here
 
     // For testing - create a list of collections and return them in a future.
