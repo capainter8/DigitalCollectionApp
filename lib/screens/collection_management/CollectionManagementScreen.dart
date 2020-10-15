@@ -15,7 +15,19 @@ class _CollectionManagementScreen extends State<CollectionManagementScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text("Collections"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Collections"),
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: ImageIcon(
+                AssetImage('assets/images/icon.png'),
+                color: Color(0xAAFFFFFF)
+              ),
+            )
+          ],
+        )
       ),
       drawer: Drawer(),
       body: CollectionListView(),
