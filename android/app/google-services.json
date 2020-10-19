@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "386603824558",
+    "firebase_url": "https://digital-collection-app-66149.firebaseio.com",
+    "project_id": "digital-collection-app-66149",
+    "storage_bucket": "digital-collection-app-66149.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386603824558:android:fde9fb6b1f8fd7f18b843f",
+        "android_client_info": {
+          "package_name": "com.example.DigitalCollectionApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386603824558-mtrnldo6ldfjft8hvpko1pejsc2v6s82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBixlsZKKnMUupe9-xfOIfo3_AjIbPc2RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386603824558-mtrnldo6ldfjft8hvpko1pejsc2v6s82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CollectionListView.dart';
+import 'package:DigitalCollectionApp/Dialogs.dart';
 
 class CollectionManagementScreen extends StatefulWidget {
   @override
@@ -32,7 +33,11 @@ class _CollectionManagementScreen extends State<CollectionManagementScreen> {
       drawer: Drawer(),
       body: CollectionListView(),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add)
+        child: Icon(Icons.add),
+         onPressed: () {
+                Dialogs.confirmation(context, "Create new collection?");
+              }
+
       )
     );
   }
