@@ -22,7 +22,7 @@ class CollectionDatabase {
         Collection(
             UniqueKey(),
             "Old First Edition Books",
-            "Contains old first edition books, mostly american literature pre 1900's.",
+            "Collection of old first edition books, mostly American literature pre 1900's.",
             DateTime(2019, 100)
         )
     );
@@ -31,7 +31,7 @@ class CollectionDatabase {
         Collection(
             UniqueKey(),
             "Stamp Collection",
-            "Collection of canada post stamps.",
+            "Collection of stamps.",
             DateTime(2020, 185)
         )
     );

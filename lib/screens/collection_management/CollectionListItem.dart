@@ -31,7 +31,7 @@ class CollectionListItem extends StatelessWidget {
                       Text("Created on July 15, 2019"),
                       Text("23 Item(s)")
                     ]
-                  )
+                  ),
                 ],
               )
           ),
