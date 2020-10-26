@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'CollectionListView.dart';
-import 'package:DigitalCollectionApp/Dialogs.dart';
+import 'package:DigitalCollectionApp/services/Dialogs.dart';
+import 'package:provider/provider.dart';
+import 'package:DigitalCollectionApp/services/Auth.dart';
 
 class CollectionManagementScreen extends StatefulWidget {
   @override
@@ -30,7 +32,18 @@ class _CollectionManagementScreen extends State<CollectionManagementScreen> {
           ],
         )
       ),
-      drawer: Drawer(),
+      drawer: Drawer(child: ListView(
+        padding: EdgeInsets.zero,
+      children: <Widget>[ 
+        ListTile(
+        title: Text('Sign Out'),
+        onTap: () {
+
+          context.read<Auth>().logout();
+         
+        })
+      ]
+      )),
       body: CollectionListView(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

@@ -1,3 +1,4 @@
+import 'package:DigitalCollectionApp/CollectionCreateScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:DigitalCollectionApp/SecondPage.dart';
 
@@ -10,7 +11,7 @@ class Dialogs
      {
        Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SecondPage()),
+        MaterialPageRoute(builder: (context) => CollectionCreateScreen()),
        );
      }
 
