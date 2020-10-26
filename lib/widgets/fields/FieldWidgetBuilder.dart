@@ -30,7 +30,7 @@ class _Visitor implements fields.FieldVisitor {
       widget = new DecimalFieldWidget(field);
     }
     else {
-      widget = null;
+      throw("An unimplemented field type was passed to the field widget builder.");
     }
   }
 }
