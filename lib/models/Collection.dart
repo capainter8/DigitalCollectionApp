@@ -1,3 +1,5 @@
+import 'package:DigitalCollectionApp/models/Schema.dart';
+
 /// Collection.dart
 ///
 ///
@@ -7,45 +9,25 @@ import "package:flutter/widgets.dart";
 
 class Collection {
 
-  UniqueKey _id; // Uniquely identifies this collection
-  String _name;
-  String _description;
-  DateTime _creationDate;
-  List<CollectionItem> _items;
+  UniqueKey id; // Uniquely identifies this collection
+  String name;
+  String description;
+  DateTime creationDate;
+  List<CollectionItem> items;
+  Schema schema;
 
   Collection (
-      UniqueKey id,
-      String name,
-      String description,
-      DateTime creationDate,
-      ) {
-    _id = id;
-    _name = name;
-    _description = description;
-    _creationDate = creationDate;
+      this.name,
+      this.description,
+      this.creationDate,
+      this.schema
+      )
+  {
+    this.items = new List<CollectionItem>();
+    this.id = UniqueKey();
   }
 
-  UniqueKey getId() {
-    return _id;
-  }
-
-  String getName() {
-    return _name;
-  }
-
-  String getDescription() {
-    return _description;
-  }
-
-  DateTime getCreationDate() {
-    return _creationDate;
-  }
-
-  int getItemCount() {
-    return _items.length;
-  }
-
-  void addItem(CollectionItem item) {
-    _items.add(item);
+  void add(CollectionItem item) {
+    items.add(item);
   }
 }

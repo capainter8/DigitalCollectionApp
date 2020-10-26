@@ -1,8 +1,12 @@
 import 'package:DigitalCollectionApp/models/fields/Fields.dart' as f;
 import 'package:DigitalCollectionApp/models/fields/FieldType.dart';
 
+/// This class contains a series of static methods that handle the polymorphic
+/// nature of the fields.
 class FieldUtil {
 
+  /// Creates a field from a type, name, and value
+  /// TODO: This should throw an exception if value is the wrong type
   static f.Field load(FieldType type, String name, dynamic value) {
     if (type == FieldType.TextField) {
       f.TextField field = f.TextField(name);
@@ -19,6 +23,7 @@ class FieldUtil {
     }
   }
 
+  /// Returns the value of a field
   static dynamic getValue(f.Field field) {
     if (field is f.TextField) {
       return field.value;
@@ -31,6 +36,7 @@ class FieldUtil {
     }
   }
 
+  /// Sets the value of a field
   static void setValue(f.Field field, dynamic value) {
     if (field is f.TextField) {
       if (value is String) {

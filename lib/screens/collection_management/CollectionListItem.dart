@@ -19,12 +19,12 @@ class CollectionListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      collection.getName(),
+                      collection.name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16
                       )),
-                  Text(collection.getDescription()),
+                  Text(collection.description),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

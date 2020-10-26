@@ -1,7 +1,7 @@
 import 'package:DigitalCollectionApp/screens/collection_management/CollectionListItem.dart';
 import 'package:flutter/material.dart';
 import '../../models/Collection.dart';
-import '../../services/CollectionDatabase.dart';
+import '../../services/CollectionManager.dart';
 
 class CollectionListView extends StatefulWidget {
   @override
@@ -13,7 +13,8 @@ class CollectionListView extends StatefulWidget {
 class _CollectionListView extends State<CollectionListView> {
 
   Future<List<CollectionListItem>> getCollectionWidgets() async {
-    List<Collection> collections = await CollectionDatabase.fetchCollections();
+    CollectionManager manager = CollectionManager.getInstance();
+    List<Collection> collections = await manager.fetchCollections();
     List<CollectionListItem> widgets = collections.map((Collection collection) => CollectionListItem(collection: collection)).toList();
     return widgets;
   }

@@ -6,6 +6,7 @@ import 'fields/Fields.dart' as fields;
 import 'fields/FieldType.dart';
 import 'dart:convert';
 
+/// TODO: implement schema field options.
 class Schema {
 
   Map<String, FieldType> _entries;
