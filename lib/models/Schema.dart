@@ -44,7 +44,7 @@ class Schema {
 
   // Get a list of the keys
   List<String> getKeys() {
-    return _entries.keys;
+    return _entries.keys.toList();
   }
 
   // Get the value of an entry
@@ -52,6 +52,7 @@ class Schema {
       return _entries[name];
   }
 
+  // Convert string to enum
   FieldType _getFieldType(String fieldType) {
     for (var e in FieldType.values) {
       String enumVal = e.toString();
