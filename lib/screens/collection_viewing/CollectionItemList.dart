@@ -1,8 +1,6 @@
 import 'package:DigitalCollectionApp/models/CollectionItem.dart';
 import 'package:DigitalCollectionApp/models/CollectionViewerProxy.dart';
-import 'package:DigitalCollectionApp/models/Schema.dart';
-import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
-import 'package:DigitalCollectionApp/widgets/fields/FieldWidgetBuilder.dart';
+import 'package:DigitalCollectionApp/widgets/collection_item/CollectionItemCard.dart';
 import 'package:flutter/material.dart';
 
 /// CollectionItemList.dart
@@ -32,11 +30,9 @@ class _ListItemState extends State<CollectionItemList> {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
-        // For testing, get the first field
-        Schema schema = items[index].schema;
-        String name = schema.getKeys().first;
-        f.Field field = items[index].getField(name);
-        return FieldWidgetBuilder.build(field);
+        // get the collection
+        CollectionItem current = items.elementAt(index);
+        return CollectionItemCard(current);
       }
     );
   }

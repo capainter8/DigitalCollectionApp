@@ -12,11 +12,25 @@ class BaseField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        Text(this.name,
-        style: TextStyle(color: Colors.black12)),
-        this.child
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                this.name,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 11
+                )
+              ),
+              this.child
+            ]
+          ),
+        ),
       ],
     );
   }

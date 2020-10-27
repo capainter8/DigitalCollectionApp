@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text("TEST")),
+        appBar: AppBar(title: Text("Book Collection")),
         body: CollectionItemList(proxy)
         )
       );
@@ -68,6 +68,18 @@ class MyApp extends StatelessWidget {
     // 4. Add the collection to the manager
     manager.addCollection(collection);
     manager.addCollectionItem(collection, item);
+
+    f.Field f3 = f.TextField("Title");
+    f.FieldUtil.setValue(f3, "Leviathan");
+
+    f.Field f4 = f.DecimalField("Weight (kg)");
+    f.FieldUtil.setValue(f4, 1.023);
+
+    CollectionItem item2 = CollectionItem(s);
+    item2.addField(f3);
+    item2.addField(f4);
+
+    manager.addCollectionItem(collection, item2);
 
     // 6. Instantiate the collection proxy
     proxy = CollectionViewerProxy("Books");
