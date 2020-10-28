@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/models/Schema.dart';
+import 'dart:convert';
 
 /// Collection.dart
 ///
@@ -29,5 +30,28 @@ class Collection {
 
   void add(CollectionItem item) {
     items.add(item);
+  }
+
+  String serializeItems() {
+    List<String> serializedItems = items.map((e) => e.serialize()).toList();
+    return jsonEncode(
+      {
+        'items': serializedItems
+      }
+    );
+  }
+
+  void loadItems(String json) {
+
+    var map = jsonDecode(json);
+    var list = map['items'] as List<dynamic>;
+
+    items.addAll(
+      list.map((elem) {
+        CollectionItem item = CollectionItem(schema);
+        item.load(elem);
+        return item;
+      })
+    );
   }
 }

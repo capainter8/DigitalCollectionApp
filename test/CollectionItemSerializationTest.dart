@@ -1,3 +1,4 @@
+import 'package:DigitalCollectionApp/models/Collection.dart';
 import 'package:DigitalCollectionApp/models/fields/Fields.dart' as Fields;
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/models/CollectionItem.dart';
@@ -27,6 +28,26 @@ void main() {
   itemCopy.updateField("Velocity", 999.00);
 
   itemCopy.removeField("Velocity");
+
+  Collection collection = Collection(
+    'coins',
+    'coins in here.',
+    DateTime.now(),
+    schema
+  );
+
+  collection.add(item);
+
+  String srlzdstr = collection.serializeItems();
+
+  Collection collection2 = new Collection(
+    'coins',
+    'coins in here',
+    DateTime.now(),
+    schema
+  );
+
+  collection2.loadItems(srlzdstr);
 
   print("done");
 }

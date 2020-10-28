@@ -1,11 +1,16 @@
 import 'package:DigitalCollectionApp/screens/collection_management/CollectionListItemPopupMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/Collection.dart';
 
 class CollectionListItem extends StatelessWidget {
 
   final Collection collection;
   CollectionListItem({@required this.collection});
+
+  String formatDate(DateTime date) {
+    return DateFormat.yMMMMd('en_US').format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +33,8 @@ class CollectionListItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Created on July 15, 2019"),
-                      Text("23 Item(s)")
+                      Text("Created on " + formatDate(collection.creationDate)),
+                      Text("${collection.items.length} Item(s)")
                     ]
                   ),
                 ],

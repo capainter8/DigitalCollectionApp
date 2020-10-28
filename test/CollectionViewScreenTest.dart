@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
     );
 
     // 3. Get the collection manager
-    CollectionManager manager = CollectionManager.getInstance();
+    CollectionManager manager = CollectionManager.instance;
 
     // 4. Add the collection to the manager
     manager.addCollection(collection);

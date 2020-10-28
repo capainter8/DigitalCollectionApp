@@ -16,9 +16,7 @@ class CollectionViewerProxy {
   Schema schema;
 
   CollectionViewerProxy(String collectionName) {
-    // Obtain a reference to the collection manager
-    CollectionManager manager = CollectionManager.getInstance();
-    Collection collection = manager.getCollection(collectionName);
+    Collection collection = CollectionManager.instance.getCollection(collectionName);
     items = collection.items;
     schema = collection.schema;
   }
