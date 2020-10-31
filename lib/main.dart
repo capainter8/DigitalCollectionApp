@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'screens/collection_management/CollectionManagementScreen.dart';
+=======
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+
+>>>>>>> Stashed changes
 
 void main() {
   runApp(MyApp());
