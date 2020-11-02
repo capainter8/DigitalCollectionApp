@@ -29,8 +29,8 @@ class LocalDatabase {
             creation_date TEXT,
             schema TEXT,
             items TEXT
-          )
-          ''');
+          )'''
+        );
       },
       version: 1
     );
@@ -38,9 +38,7 @@ class LocalDatabase {
 
   Future<List<Collection>> getAllCollections() async {
     final Database db = await database;
-    List<Map<String, dynamic>> maps = await db.query('collections');
-
-    return List.generate(maps.length, (i) => _buildCollection(maps[i]));
+    return (await db.query('collections')).map((elem) => _buildCollection(elem)).toList();
   }
 
   Future<Collection> getCollectionByName(String name) async {
@@ -78,15 +76,15 @@ class LocalDatabase {
 
     if (!collectionNames.contains(c.name)) {
       await db.insert(
-          'collections',
-          {
-            'id': c.id.toString(),
-            'name': c.name,
-            'description': c.description,
-            'creation_date': c.creationDate.toIso8601String(),
-            'schema': c.schema.serialize(),
-            'items': c.serializeItems()
-          }
+        'collections',
+        {
+          'id': c.id.toString(),
+          'name': c.name,
+          'description': c.description,
+          'creation_date': c.creationDate.toIso8601String(),
+          'schema': c.schema.serialize(),
+          'items': c.serializeItems()
+        }
       );
     }
   }

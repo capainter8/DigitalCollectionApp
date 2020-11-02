@@ -46,12 +46,22 @@ class MyApp extends StatelessWidget {
     f.Field f2 = f.DecimalField("Weight (kg)");
     f.FieldUtil.setValue(f2, 0.567);
 
+    f.Field f3 = f.TextField("Author");
+    f.FieldUtil.setValue(f3, "Johnathan Swift");
+
+    f.Field f4 = f.TextField("Publish Date");
+    f.FieldUtil.setValue(f4, "28 October 1726");
+
     s.addField(f1);
+    s.addField(f3);
+    s.addField(f4);
     s.addField(f2);
 
     // 2. Create a collection item
     CollectionItem item = CollectionItem(s);
     item.addField(f1);
+    item.addField(f3);
+    item.addField(f4);
     item.addField(f2);
 
     // 3. Create a collection
@@ -69,15 +79,23 @@ class MyApp extends StatelessWidget {
     manager.addCollection(collection);
     manager.addCollectionItem(collection, item);
 
-    f.Field f3 = f.TextField("Title");
-    f.FieldUtil.setValue(f3, "Leviathan");
+    f.Field f5 = f.TextField("Title");
+    f.FieldUtil.setValue(f5, "Leviathan");
 
-    f.Field f4 = f.DecimalField("Weight (kg)");
-    f.FieldUtil.setValue(f4, 1.023);
+    f.Field f6 = f.DecimalField("Weight (kg)");
+    f.FieldUtil.setValue(f6, 1.023);
+
+    f.Field f7 = f.TextField("Author");
+    f.FieldUtil.setValue(f7, "Thomas Hobbes");
+
+    f.Field f8 = f.TextField("Publish Date");
+    f.FieldUtil.setValue(f8, "April 1651");
 
     CollectionItem item2 = CollectionItem(s);
-    item2.addField(f3);
-    item2.addField(f4);
+    item2.addField(f5);
+    item2.addField(f7);
+    item2.addField(f8);
+    item2.addField(f6);
 
     manager.addCollectionItem(collection, item2);
 
