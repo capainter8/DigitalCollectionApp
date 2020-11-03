@@ -1,4 +1,9 @@
+import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
+import 'package:DigitalCollectionApp/screens/collection_creation/CreateFieldScreen.dart';
+import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'models/CreateCollectionModel.dart';
 import 'screens/collection_management/CollectionManagementScreen.dart';
 
 void main() {
@@ -8,13 +13,26 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: CollectionManagementScreen(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => CreateCollectionModel()),
+        ],
+
+        child: MaterialApp(
+            title: 'Collection App',
+            theme: ThemeData(
+                primarySwatch: Colors.lightBlue,
+                accentColor: Colors.lightBlueAccent
+            ),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => CollectionManagementScreen(),
+              '/create_collection': (context) => CollectionCreationScreen(),
+              '/view_collection': (context) => CollectionViewScreen('some collection'),
+              '/create_collection/select_field_type': (context) => Text('placeholder'), // TODO: Add these
+              '/create_collection/create_field': (context) => CreateFieldScreen()
+            }
+        )
     );
   }
 }

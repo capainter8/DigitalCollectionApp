@@ -17,12 +17,20 @@ class Collection {
   List<CollectionItem> items;
   Schema schema;
 
-  Collection (
+  Collection() {
+    id = UniqueKey();
+    name = '';
+    description = '';
+    creationDate = DateTime.now();
+    items = List<CollectionItem>();
+    schema = Schema();
+  }
+
+  Collection.build (
       this.name,
       this.description,
       this.creationDate,
-      this.schema
-      )
+      this.schema )
   {
     this.items = new List<CollectionItem>();
     this.id = UniqueKey();

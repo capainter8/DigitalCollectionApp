@@ -1,97 +1,100 @@
+import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SchemaEditBody extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _SchemaEditBodyState([
-        f.FieldUtil.load(f.FieldType.TextField, "Test Field 1", "Field 1 value", required: true),
-        f.FieldUtil.load(f.FieldType.TextField, "Test Field 2", "Field 2 value", required: false),
-        f.FieldUtil.load(f.FieldType.DecimalField, "Test Field 3", 456.34, required: false),
-      ]
-    );
+    return _SchemaEditBodyState();
   }
 }
 
 class _SchemaEditBodyState extends State<SchemaEditBody> {
 
-  List<f.Field> fields;
-  f.Field selectedField;
-
-  _SchemaEditBodyState(this.fields);
+  _SchemaEditBodyState();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildFieldDataTable(context),
-        _buildFieldControlBar()
-      ]
+
+    return Consumer<CreateCollectionModel> (
+      builder: (context, model, child) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildFieldDataTableWrapper(context, model),
+            _buildFieldControlBar(model)
+          ]
+        );
+      }
     );
   }
 
-  _onFieldSelected(bool selected, f.Field field) {
-    setState(() {
-      selectedField = field;
-    });
+  Widget _buildFieldDataTableWrapper(BuildContext context, CreateCollectionModel model) {
+    if (model.getFields().length == 0) {
+      return _buildNoFieldsWidget();
+    }
+    // If there are fields
+    return Row(
+        children: [
+          Expanded(
+              child: _buildFieldDataTable(context, model)
+          )
+        ]
+    );
   }
 
-  Widget _buildFieldDataTable(BuildContext context) {
-
-    if (fields.length == 0) {
-      return Expanded (
-        child: Align(
+  _buildNoFieldsWidget() {
+    return Expanded (
+      child: Align(
           alignment: Alignment.center,
           child: Text('Tap \'+\' to add a field', style: TextStyle(
-            color: Colors.black38,
-            fontStyle: FontStyle.italic
+              color: Colors.black38,
+              fontStyle: FontStyle.italic
           ))
-        ),
-      );
-    }
-    
-    return Row(
-      children: [
-        Expanded(
-          child: DataTable(
-              showCheckboxColumn: false,
-              headingRowColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                return Theme.of(context).colorScheme.primary;
-              }),
-              columns: [
-                DataColumn(
-                    label: Text("Label")
-                ),
-                DataColumn(
-                    label: Text('Type')
-                ),
-                DataColumn(
-                    label: Text('Required')
-                )
-              ],
-              rows: _buildFieldDataTableRows(context)
-          ),
-        ),
-      ],
+      ),
     );
   }
 
-  List<DataRow> _buildFieldDataTableRows(BuildContext context) {
+  Widget _buildFieldDataTable(BuildContext context, CreateCollectionModel model) {
+    return DataTable(
+      showCheckboxColumn: false,
+      headingRowColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+        return Theme.of(context).colorScheme.secondary;
+      }),
+      columns: _buildDataTableColumns(context),
+      rows: _buildDataTableRows(context, model)
+    );
+  }
+
+  List<DataColumn> _buildDataTableColumns(BuildContext context) {
+    return [
+      DataColumn(
+          label: Text("Label")
+      ),
+      DataColumn(
+          label: Text('Type')
+      ),
+      DataColumn(
+          label: Text('Required')
+      )
+    ];
+  }
+
+  List<DataRow> _buildDataTableRows(BuildContext context, CreateCollectionModel model) {
 
     List<DataRow> rows = List<DataRow>();
-    for (f.Field field in fields) {
+    for (f.Field field in model.getFields()) {
       DataRow row = DataRow(
           color: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-            if (selectedField == field) {
+            if (model.selectedField == field) {
               return Theme.of(context).colorScheme.primary.withOpacity(0.2);
             }
             return null;
           }),
           onSelectChanged: (selected) {
-            _onFieldSelected(selected, field);
+            model.selectedField = field;
           },
           cells: [
             DataCell(Text(field.name)),
@@ -108,11 +111,11 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     return 'No';
   }
   
-  Widget _buildFieldControlBar() {
+  Widget _buildFieldControlBar(CreateCollectionModel model) {
     return Column(
     children: [
       _buildFloatingActionButton(),
-      _buildControlBar()
+      _buildControlBar(model)
     ]);
   }
 
@@ -124,7 +127,8 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
           padding: const EdgeInsets.all(8.0),
           child: FloatingActionButton.extended(
               onPressed: () {
-                // Do something
+                // Navigate to create field screen
+                Navigator.pushNamed(context, '/create_collection/create_field');
               },
               label: Text('New Field'),
               icon: Icon(Icons.add)
@@ -134,8 +138,8 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     );
   }
 
-  Widget _buildControlBar() {
-    if (selectedField == null) return Container();
+  Widget _buildControlBar(CreateCollectionModel model) {
+    if (model.selectedField == null) return Container();
     return Container(
       color: Theme.of(context).colorScheme.primary,
       child: Row(
@@ -151,32 +155,10 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
               // Move the selected field down one
             }),
             IconButton(icon: Icon(Icons.delete), onPressed: () {
-              setState(() {
-                _removeSelectedField();
-              });
+              model.removeField(model.selectedField);
             })
           ]
       ),
     );
-  }
-
-  void _removeSelectedField() {
-    int index = fields.indexOf(selectedField);
-
-    int next; // The index of the next field that will be selected
-    if (index - 1 <= 0) {
-      next = (index + 1) % fields.length;
-    } else {
-      next = (index - 1) % fields.length;
-    }
-
-    f.Field temp = fields.elementAt(next);
-    fields.remove(selectedField);
-
-    if (fields.length > 0) {
-      selectedField = temp;
-    } else {
-      selectedField = null;
-    }
   }
 }

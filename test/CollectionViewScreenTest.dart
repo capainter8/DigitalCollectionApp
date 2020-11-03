@@ -23,23 +23,11 @@ class MyApp extends StatelessWidget {
 
     Widget list = CollectionItemList(proxy);
 
-    MaterialColor myGreen = const MaterialColor(0xFFc4fb6d,
-        const {
-          50 : const Color(0xFFc3fb6a),
-          100 : const Color(0xFFbafb51),
-          200 : const Color(0xFFb0fa38),
-          300 : const Color(0xFFa6f91f),
-          400 : const Color(0xFF9cf906),
-          500 : const Color(0xFF8ce006),
-          600 : const Color(0xFF7dc705),
-          700 : const Color(0xFF6dae04),
-          800 : const Color(0xFF5d9504),
-          900 : const Color(0xFF4e7c03)});
-
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: myGreen
+        primarySwatch: Colors.lightBlue,
+        accentColor: Colors.lightBlueAccent
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -87,7 +75,7 @@ class MyApp extends StatelessWidget {
     item.addField(f2);
 
     // 3. Create a collection
-    Collection collection = new Collection(
+    Collection collection = new Collection.build(
       "Books",
       "Some books",
       DateTime.now(),

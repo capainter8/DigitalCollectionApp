@@ -29,7 +29,7 @@ void main() {
 
   itemCopy.removeField("Velocity");
 
-  Collection collection = Collection(
+  Collection collection = Collection.build(
     'coins',
     'coins in here.',
     DateTime.now(),
@@ -40,7 +40,7 @@ void main() {
 
   String srlzdstr = collection.serializeItems();
 
-  Collection collection2 = new Collection(
+  Collection collection2 = new Collection.build(
     'coins',
     'coins in here',
     DateTime.now(),

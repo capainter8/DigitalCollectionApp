@@ -56,7 +56,7 @@ class LocalDatabase {
     Schema schema = Schema();
     schema.load(item['schema']);
 
-    Collection collection = Collection(
+    Collection collection = Collection.build(
       item['name'],
       item['description'],
       DateTime.parse(item['creation_date']),

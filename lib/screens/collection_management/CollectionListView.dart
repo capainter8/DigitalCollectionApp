@@ -45,7 +45,7 @@ class _CollectionListView extends State<CollectionListView> {
     schema.addField(model);
     schema.addField(horsepower);
 
-    Collection cars = Collection(
+    Collection cars = Collection.build(
         'Cars',
         'A collection of cars',
         DateTime.now(),
