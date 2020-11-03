@@ -7,14 +7,14 @@ class FieldUtil {
 
   /// Creates a field from a type, name, and value
   /// TODO: This should throw an exception if value is the wrong type
-  static f.Field load(FieldType type, String name, dynamic value) {
+  static f.Field load(FieldType type, String name, dynamic value, {required = false}) {
     if (type == FieldType.TextField) {
-      f.TextField field = f.TextField(name);
+      f.TextField field = f.TextField(name, required: required);
       field.value = value as String;
       return field;
     }
     else if (type == FieldType.DecimalField) {
-      f.DecimalField field = f.DecimalField(name);
+      f.DecimalField field = f.DecimalField(name, required: required);
       field.value = value as double;
       return field;
     }

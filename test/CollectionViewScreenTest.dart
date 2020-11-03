@@ -2,6 +2,7 @@ import 'package:DigitalCollectionApp/models/Collection.dart';
 import 'package:DigitalCollectionApp/models/CollectionItem.dart';
 import 'package:DigitalCollectionApp/models/CollectionViewerProxy.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
+import 'package:DigitalCollectionApp/screens/collection_creation/SchemaEditBody.dart';
 import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionItemList.dart';
 import 'package:DigitalCollectionApp/services/CollectionManager.dart';
 import 'package:flutter/material.dart';
@@ -22,15 +23,37 @@ class MyApp extends StatelessWidget {
 
     Widget list = CollectionItemList(proxy);
 
+    MaterialColor myGreen = const MaterialColor(0xFFc4fb6d,
+        const {
+          50 : const Color(0xFFc3fb6a),
+          100 : const Color(0xFFbafb51),
+          200 : const Color(0xFFb0fa38),
+          300 : const Color(0xFFa6f91f),
+          400 : const Color(0xFF9cf906),
+          500 : const Color(0xFF8ce006),
+          600 : const Color(0xFF7dc705),
+          700 : const Color(0xFF6dae04),
+          800 : const Color(0xFF5d9504),
+          900 : const Color(0xFF4e7c03)});
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: myGreen
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text("Book Collection")),
-        body: CollectionItemList(proxy)
+        appBar: AppBar(
+            title: Text("Field Editor"),
+            elevation: 0
+        ),
+        //body: CollectionItemList(proxy)
+        body: Row(
+          children: [
+            Expanded(
+              child: SchemaEditBody()
+            ),
+          ],
+        )
         )
       );
   }
@@ -40,8 +63,7 @@ class MyApp extends StatelessWidget {
     // 1. Create a schema
     Schema s = Schema();
 
-    f.Field f1 = f.TextField("Title");
-    f.FieldUtil.setValue(f1, "Gulliver's Travels");
+    f.Field f1 = f.FieldUtil.load(f.FieldType.TextField, "Title", "Gulliver's Travels");
 
     f.Field f2 = f.DecimalField("Weight (kg)");
     f.FieldUtil.setValue(f2, 0.567);
