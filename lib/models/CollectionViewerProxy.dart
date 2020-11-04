@@ -12,13 +12,14 @@ import 'package:DigitalCollectionApp/services/CollectionManager.dart';
 // TODO: Finish the implementation of this class
 class CollectionViewerProxy {
 
-  List<CollectionItem> items;
-  Schema schema;
+  List<CollectionItem> itemsProxy;
+  Collection collectionProxy;
+  Schema schemaProxy;
 
-  CollectionViewerProxy(String collectionName) {
-    Collection collection = CollectionManager.instance.getCollection(collectionName);
-    items = collection.items;
-    schema = collection.schema;
+  CollectionViewerProxy(String name) {
+    collectionProxy = CollectionManager.instance.getCollection(name);
+    schemaProxy = collectionProxy.schema;
+    itemsProxy = List.from(collectionProxy.items);
   }
 
   // TODO: Add searching, sorting, and filtering capabilities

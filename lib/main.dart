@@ -1,5 +1,6 @@
 import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/CreateFieldScreen.dart';
+import 'package:DigitalCollectionApp/screens/collection_creation/FieldTypeSelectScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
               '/': (context) => CollectionManagementScreen(),
               '/create_collection': (context) => CollectionCreationScreen(),
               '/view_collection': (context) => CollectionViewScreen('some collection'),
-              '/create_collection/select_field_type': (context) => Text('placeholder'), // TODO: Add these
+              '/create_collection/select_field_type': (context) => FieldTypeSelectScreen(),
               '/create_collection/create_field': (context) => CreateFieldScreen()
             }
         )

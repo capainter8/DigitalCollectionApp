@@ -32,6 +32,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
   }
 
   Widget _buildFieldDataTableWrapper(BuildContext context, CreateCollectionModel model) {
+
     if (model.getFields().length == 0) {
       return _buildNoFieldsWidget();
     }
@@ -57,7 +58,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     );
   }
 
-  Widget _buildFieldDataTable(BuildContext context, CreateCollectionModel model) {
+  _buildFieldDataTable(BuildContext context, CreateCollectionModel model) {
     return DataTable(
       showCheckboxColumn: false,
       headingRowColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
@@ -68,7 +69,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     );
   }
 
-  List<DataColumn> _buildDataTableColumns(BuildContext context) {
+  _buildDataTableColumns(BuildContext context) {
     return [
       DataColumn(
           label: Text("Label")
@@ -82,7 +83,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     ];
   }
 
-  List<DataRow> _buildDataTableRows(BuildContext context, CreateCollectionModel model) {
+  _buildDataTableRows(BuildContext context, CreateCollectionModel model) {
 
     List<DataRow> rows = List<DataRow>();
     for (f.Field field in model.getFields()) {
@@ -106,12 +107,12 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     return rows;
   }
 
-  String _getRequiredString(bool required) {
+  _getRequiredString(bool required) {
     if (required) return 'Yes';
     return 'No';
   }
   
-  Widget _buildFieldControlBar(CreateCollectionModel model) {
+  _buildFieldControlBar(CreateCollectionModel model) {
     return Column(
     children: [
       _buildFloatingActionButton(),
@@ -119,7 +120,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     ]);
   }
 
-  Widget _buildFloatingActionButton() {
+  _buildFloatingActionButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -128,7 +129,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
           child: FloatingActionButton.extended(
               onPressed: () {
                 // Navigate to create field screen
-                Navigator.pushNamed(context, '/create_collection/create_field');
+                Navigator.pushNamed(context, '/create_collection/select_field_type');
               },
               label: Text('New Field'),
               icon: Icon(Icons.add)
@@ -138,7 +139,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
     );
   }
 
-  Widget _buildControlBar(CreateCollectionModel model) {
+  _buildControlBar(CreateCollectionModel model) {
     if (model.selectedField == null) return Container();
     return Container(
       color: Theme.of(context).colorScheme.primary,
@@ -146,10 +147,10 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(icon: Icon(Icons.arrow_upward), onPressed: () {
-              // Move the selected field up one
+              model.moveSelectedFieldUp();
             }),
             IconButton(icon: Icon(Icons.arrow_downward), onPressed: () {
-              // Move the selected field down one
+              model.moveSelectedFieldDown();
             }),
             IconButton(icon: Icon(Icons.edit), onPressed: () {
               // Move the selected field down one

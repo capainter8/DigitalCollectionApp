@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 class CollectionItemList extends StatefulWidget {
 
   // A reference to the items in a collection
-  CollectionViewerProxy itemList;
+  CollectionViewerProxy collection;
 
   CollectionItemList(CollectionViewerProxy itemList) {
-    this.itemList = itemList;
+    this.collection = itemList;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return _ListItemState(itemList.items);
+    return _ListItemState(collection.itemsProxy);
   }
 }
 
