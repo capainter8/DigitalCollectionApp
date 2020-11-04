@@ -10,30 +10,35 @@ import "package:flutter/widgets.dart";
 
 class Collection {
 
-  UniqueKey id; // Uniquely identifies this collection
+  int id;
   String name;
   String description;
   DateTime creationDate;
   List<CollectionItem> items;
   Schema schema;
 
-  Collection() {
-    id = UniqueKey();
-    name = '';
-    description = '';
+  /// Default construction is not allowed for this class
+  Collection._();
+
+  Collection.buildNew({
+    @required this.name,
+    @required this.description,
+    @required this.schema }) {
+
+    id = DateTime.now().millisecondsSinceEpoch;
     creationDate = DateTime.now();
     items = List<CollectionItem>();
-    schema = Schema();
   }
 
-  Collection.build (
-      this.name,
-      this.description,
-      this.creationDate,
-      this.schema )
-  {
-    this.items = new List<CollectionItem>();
-    this.id = UniqueKey();
+  Collection.fromExisting({
+    @required this.id,
+    @required this.name,
+    @required this.description,
+    @required this.creationDate,
+    @required String itemsJson,
+    @required this.schema}) {
+
+    loadItems(itemsJson);
   }
 
   void add(CollectionItem item) {
@@ -49,17 +54,18 @@ class Collection {
     );
   }
 
-  void loadItems(String json) {
-
+  List<CollectionItem> deserializeItems(String json, Schema schema) {
     var map = jsonDecode(json);
     var list = map['items'] as List<dynamic>;
 
-    items.addAll(
-      list.map((elem) {
-        CollectionItem item = CollectionItem(schema);
-        item.load(elem);
-        return item;
-      })
-    );
+    return list.map((itemJson) {
+      CollectionItem item = CollectionItem(schema);
+      item.load(itemJson);
+      return item;
+    });
+  }
+
+  void loadItems(String json) {
+    this.items = deserializeItems(json, this.schema);
   }
 }

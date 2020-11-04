@@ -33,7 +33,21 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
                   Tab(text: 'Info'),
                   Tab(text: 'Fields')
                 ],
-              )
+              ),
+              actions: [
+                Consumer<CreateCollectionModel> (
+                  builder: (context, model, child) {
+                    return FlatButton(
+                      child: Text('Finish'),
+                      onPressed: () {
+                        model.commitCollection();
+                        // Go back to the main screen
+                        Navigator.popUntil(context, ModalRoute.withName('/'));
+                      }
+                    );
+                  },
+                )
+              ],
           ),
           body: TabBarView(
             children: [

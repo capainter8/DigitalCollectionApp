@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
+import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +87,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
   _buildDataTableRows(BuildContext context, CreateCollectionModel model) {
 
     List<DataRow> rows = List<DataRow>();
-    for (f.Field field in model.getFields()) {
+    for (SchemaEntry field in model.getFields()) {
       DataRow row = DataRow(
           color: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
             if (model.selectedField == field) {
@@ -99,7 +100,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
           },
           cells: [
             DataCell(Text(field.name)),
-            DataCell(Text(field.getReadableType())),
+            DataCell(Text(f.fieldTypeToString(field.type))),
             DataCell(Text(_getRequiredString(field.required)))
           ]);
       rows.add(row);

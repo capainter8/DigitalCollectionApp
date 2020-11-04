@@ -2,6 +2,7 @@ import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreat
 import 'package:DigitalCollectionApp/screens/collection_creation/CreateFieldScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/FieldTypeSelectScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
+import 'package:DigitalCollectionApp/services/CollectionManager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models/CreateCollectionModel.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => CreateCollectionModel()),
+          ChangeNotifierProvider(create: (context) => CollectionManager.instance)
         ],
 
         child: MaterialApp(

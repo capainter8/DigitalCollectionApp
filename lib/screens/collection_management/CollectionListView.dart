@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../models/Collection.dart';
 import '../../services/CollectionManager.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
+import 'package:provider/provider.dart';
 
 class CollectionListView extends StatefulWidget {
   @override
@@ -16,61 +17,25 @@ class CollectionListView extends StatefulWidget {
 
 class _CollectionListView extends State<CollectionListView> {
 
-  Future<List<CollectionListItem>> getCollectionWidgets() async {
-    await insertTestCollection();
-
-    try {
-      await CollectionManager.instance.load();
-    } catch (e, trace) {
-      print(trace);
-    }
-
-    List<Collection> collections = await CollectionManager.instance.getAllCollections();
-    return collections.map((collection) => CollectionListItem(collection: collection)).toList();
-  }
-
-  insertTestCollection() async {
-
-    WidgetsFlutterBinding.ensureInitialized();
-
-    f.TextField make = f.TextField("Make");
-    make.value = "Nissan";
-    f.TextField model = f.TextField("Model");
-    model.value = "Skyline";
-    f.DecimalField horsepower = f.DecimalField("Horsepower");
-    horsepower.value = 273;
-
-    Schema schema = Schema();
-    schema.addField(make);
-    schema.addField(model);
-    schema.addField(horsepower);
-
-    Collection cars = Collection.build(
-        'Cars',
-        'A collection of cars',
-        DateTime.now(),
-        schema
-    );
-
-    CollectionItem nissan = CollectionItem(schema);
-    nissan.addField(make);
-    nissan.addField(model);
-    nissan.addField(horsepower);
-
-    cars.add(nissan);
-
-    LocalDatabase db = LocalDatabase.instance;
-    await db.insertCollection(cars);
+  @override
+  void initState() {
+    CollectionManager.instance.update();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    context.watch<CollectionManager>();
+
     return FutureBuilder(
-      future: getCollectionWidgets(),
-      builder: (BuildContext context, AsyncSnapshot<List<CollectionListItem>> snapshot) {
+      future: getCollections(),
+      builder: (BuildContext context, AsyncSnapshot<List<Collection>> snapshot) {
         List<Widget> children = List<Widget>();
         if (snapshot.hasData) {
-          children.addAll(snapshot.data);
+          children.addAll(snapshot.data.map((collection) {
+            return CollectionListItem(collection: collection);
+          }));
         } else {
           // Wait...
         }
@@ -85,5 +50,9 @@ class _CollectionListView extends State<CollectionListView> {
         );
       }
     );
+  }
+
+  getCollections() {
+    return CollectionManager.instance.getAllCollections();
   }
 }

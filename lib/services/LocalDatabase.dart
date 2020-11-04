@@ -53,19 +53,16 @@ class LocalDatabase {
 
   Collection _buildCollection(Map<String, dynamic> item) {
 
-    Schema schema = Schema();
-    schema.load(item['schema']);
-
-    Collection collection = Collection.build(
-      item['name'],
-      item['description'],
-      DateTime.parse(item['creation_date']),
-      schema
+    return Collection.fromExisting(
+        id: int.parse(item['id']),
+        name: item['name'],
+        description: item['description'],
+        creationDate: DateTime.parse(item['creation_date']),
+        itemsJson: item['items'],
+        schema: Schema.fromJson(
+          json: item['schema']
+        )
     );
-
-    collection.loadItems(item['items']);
-
-    return collection;
   }
 
   Future<void> insertCollection(Collection c) async {
@@ -87,6 +84,11 @@ class LocalDatabase {
         }
       );
     }
+  }
+
+  Future<void> updateCollection(Collection c) async {
+
+    final Database db = await database;
   }
 
   Future<List<String>> getCollectionNames() async {

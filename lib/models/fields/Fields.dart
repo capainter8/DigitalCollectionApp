@@ -8,7 +8,6 @@ abstract class Field {
 
   void accept(FieldVisitor visitor) => visitor.visit(this);
   FieldType getType();
-  String getReadableType();
 }
 
 abstract class FieldVisitor {
@@ -27,11 +26,6 @@ class TextField extends Field {
   FieldType getType() {
     return FieldType.TextField;
   }
-
-  @override
-  String getReadableType() {
-    return "Text";
-  }
 }
 
 /// Decimal Field
@@ -45,10 +39,5 @@ class DecimalField extends Field {
   @override
   FieldType getType() {
     return FieldType.DecimalField;
-  }
-
-  @override
-  String getReadableType() {
-    return "Decimal";
   }
 }

@@ -19,7 +19,7 @@ class CollectionItem {
     Map<String, dynamic> jsonMap = jsonDecode(jsonItem);
     for (var key in jsonMap.keys) {
       // Get the type of the field
-      f.FieldType type = schema.getValue(key);
+      f.FieldType type = schema.getEntryType(key);
 
       if (type != null) {
         // Add a field of the appropriate type to the Collection Item
@@ -41,7 +41,7 @@ class CollectionItem {
   }
 
   f.Field getField(String name) {
-    if (schema.getKeys().contains(name)) {
+    if (schema.getEntryNames().contains(name)) {
       return fields[name];
     }
     else {
@@ -54,7 +54,7 @@ class CollectionItem {
   }
 
   void removeField(String name) {
-    if (schema.getKeys().contains(name)) {
+    if (schema.getEntryNames().contains(name)) {
       fields.remove(name);
     }
     else {
@@ -63,7 +63,7 @@ class CollectionItem {
   }
 
   void updateField(String name, dynamic newValue) {
-    if (schema.getKeys().contains(name)) {
+    if (schema.getEntryNames().contains(name)) {
       f.FieldUtil.setValue(fields[name], newValue);
     }
     else {
@@ -72,6 +72,6 @@ class CollectionItem {
   }
 
   List<String> getFieldNames() {
-    return schema.getKeys();
+    return schema.getEntryNames();
   }
 }

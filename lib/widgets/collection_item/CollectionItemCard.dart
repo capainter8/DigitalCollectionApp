@@ -23,7 +23,7 @@ class CollectionItemCard extends StatelessWidget {
     List<Widget> widgets = List<Widget>();
 
     Schema schema = item.schema;
-    List<String> keys = schema.getKeys();
+    List<String> keys = schema.getEntryNames();
     for (var key in keys) {
       f.Field field = item.getField(key);
       widgets.add(FieldWidgetBuilder.build(field));

@@ -1,56 +1,80 @@
+import 'package:DigitalCollectionApp/screens/collection_creation/FieldTypeSelectScreen.dart';
+import 'package:flutter/material.dart';
+
 /// Schema.dart
 ///
 /// A schema represents all of the fields in a collection.
 
-import 'fields/Fields.dart' as fields;
 import 'fields/FieldType.dart';
 import 'dart:convert';
 
-/// TODO: implement schema field options.
+class SchemaEntry {
+  String name;
+  FieldType type;
+  bool required;
+  SchemaEntry(this.name, this.type, {this.required=false});
+}
+
 class Schema {
 
-  Map<String, FieldType> _entries;
+  List<SchemaEntry> _entries;
 
-  Schema() {
-    this._entries = new Map<String, FieldType>();
+  Schema.fromList({
+    @required List<SchemaEntry> entries}) {
+
+    _entries = List();
+    _entries.addAll(entries);
   }
 
-  // Loads the fields from a json string
-  void load(String json) {
-    Map<String, dynamic> map = jsonDecode(json);
-    for (var key in map.keys) {
-      FieldType type = _getFieldType(map[key]);
-      _entries[key] = type;
-    }
+  Schema.fromJson({
+    @required String json }) {
+
+    _entries = deserialize(json);
   }
 
-  // Serialize the entries to a json object
   String serialize() {
-    Map<String, String> converted = new Map<String, String>();
-    for (var key in _entries.keys) {
-      converted[key] = _entries[key].toString();
-    }
-    return jsonEncode(converted);
+
+    List<Map<String, String>> entries = _entries.map(
+        (entry) {
+          return {
+            'name': entry.name,
+            'type': entry.type.toString(),
+            'required': entry.required.toString()
+          };
+        }
+    ).toList();
+    Map<String, List<Map<String, String>>> container = {
+      'entries': entries
+    };
+    return jsonEncode(container);
   }
 
-  // Add a field to the schema
-  void addField(fields.Field field) {
-    _entries[field.name] = field.getType();
+  deserialize(String json) {
+
+    Map<String, List<Map<String, String>>> map = jsonDecode(json);
+    List<Map<String, String>> entries = map['entries'];
+
+    return entries.map(
+        (entry) {
+          return SchemaEntry(
+            entry['name'],
+            _getFieldType(entry['type']),
+            required: entry['required'] == 'true'
+          );
+        }
+    );
   }
 
-  // Remove a field with a given name from the schema
-  void removeField(String name) {
-    _entries.remove(name);
+  List<String> getEntryNames() {
+    return _entries.map((e) => e.name);
   }
 
-  // Get a list of the keys
-  List<String> getKeys() {
-    return _entries.keys.toList();
-  }
-
-  // Get the value of an entry
-  FieldType getValue(String name) {
-      return _entries[name];
+  // Get the type of an entry
+  FieldType getEntryType(String name) {
+      return _entries.firstWhere(
+          (entry) => entry.name == name,
+          orElse: () => SchemaEntry(null, FieldType.Unknown)
+      ).type;
   }
 
   // Convert string to enum

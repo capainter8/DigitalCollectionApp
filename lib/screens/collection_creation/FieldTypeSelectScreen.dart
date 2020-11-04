@@ -1,3 +1,4 @@
+import 'package:DigitalCollectionApp/models/fields/FieldType.dart';
 import 'package:flutter/material.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
 
@@ -32,7 +33,7 @@ class FieldTypeSelect extends StatelessWidget {
     f.Field tmp = f.FieldUtil.load(type, null, null);
     return ListTile(
       leading: Icon(Icons.image),
-      title: Text(tmp.getReadableType()),
+      title: Text(fieldTypeToString(tmp.getType())),
       onTap: () => onListTileTapped(type),
     );
   }

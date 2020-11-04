@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/services/LocalDatabase.dart';
+import 'package:flutter/cupertino.dart';
 import '../models/Collection.dart';
 import '../models/CollectionItem.dart';
 import 'dart:async';
@@ -10,7 +11,7 @@ import 'dart:async';
 /// the application that use the database don't need to worry about whether
 /// the data is stored locally or in the cloud.
 
-class CollectionManager {
+class CollectionManager extends ChangeNotifier {
 
   static final instance = CollectionManager._();
   static List<Collection> _collections;
@@ -19,11 +20,19 @@ class CollectionManager {
     _collections = new List<Collection>();
   }
 
-  Future<void> load() async {
+  /// Updates the collection managers internal collection list with the local
+  /// database.
+  Future<void> update() async {
     List<Collection> temp = await LocalDatabase.instance.getAllCollections();
-    _collections.addAll(temp);
+    temp.forEach((collection) {
+      if (!_collections.contains(collection)) {
+        _collections.add(collection);
+      }
+    });
+    notifyListeners();
   }
 
+  /// Returns a list of all collections managed by the collection manager
   Future<List<Collection>> getAllCollections() async {
     return _collections;
   }
@@ -35,6 +44,9 @@ class CollectionManager {
   void addCollection(Collection collection) {
     LocalDatabase.instance.insertCollection(collection);
     _collections.add(collection);
+    // Notify the collection management page that there is a new collection
+    // in the manager so it can update its list.
+    notifyListeners();
   }
 
   Collection getCollection(String name) {
