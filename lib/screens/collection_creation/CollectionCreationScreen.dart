@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
+import 'package:DigitalCollectionApp/screens/collection_creation/CollectionInfoBody.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
           ),
           body: TabBarView(
             children: [
-              Text('Collection Info Screen'),
+              CollectionInfoBody(),
               SchemaEditBody()
             ],
           )
