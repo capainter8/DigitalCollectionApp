@@ -33,15 +33,16 @@ class CreateCollectionModel extends ChangeNotifier {
     // Create the schema
     Schema schema = Schema.fromList(entries: fields);
 
-    // Create the collection
     int nCollections = (await CollectionManager.instance.getAllCollections()).length;
+    if (collectionName == null) collectionName = 'New Collection  ' + nCollections.toString();
+
+    if (collectionDescription == null) collectionDescription = 'No description';
+
     Collection collection = Collection.buildNew(
-        name: 'New Collection  ' + nCollections.toString(),
-        description: 'No Description',
+        name: collectionName,
+        description: collectionDescription,
         schema: schema);
 
-    // Add the schema to the collection
-    collection.schema = schema;
     // Add the collection to the collection manager
     CollectionManager.instance.addCollection(collection);
   }

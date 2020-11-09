@@ -51,8 +51,8 @@ class Schema {
 
   deserialize(String json) {
 
-    Map<String, List<Map<String, String>>> map = jsonDecode(json);
-    List<Map<String, String>> entries = map['entries'];
+    Map<String, dynamic> map = jsonDecode(json);
+    List<dynamic> entries = map['entries'];
 
     return entries.map(
         (entry) {
@@ -62,7 +62,7 @@ class Schema {
             required: entry['required'] == 'true'
           );
         }
-    );
+    ).toList();
   }
 
   List<String> getEntryNames() {

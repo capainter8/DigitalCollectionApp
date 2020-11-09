@@ -62,7 +62,7 @@ class Collection {
       CollectionItem item = CollectionItem(schema);
       item.load(itemJson);
       return item;
-    });
+    }).toList();
   }
 
   void loadItems(String json) {

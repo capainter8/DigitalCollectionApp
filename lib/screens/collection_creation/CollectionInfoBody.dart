@@ -16,6 +16,9 @@ class _CollectionInfoBodyState extends State<CollectionInfoBody> {
 
   @override
   Widget build(BuildContext context) {
+
+    CreateCollectionModel _model = Provider.of<CreateCollectionModel>(context, listen: false);
+
     return Column(
       children: <Widget>[
         Padding(
@@ -35,8 +38,8 @@ class _CollectionInfoBodyState extends State<CollectionInfoBody> {
           padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
           child: TextField(
             controller: _nameInputController,
-            onEditingComplete: () {
-              Provider.of<CreateCollectionModel>(context).collectionName = _nameInputController.text;
+            onChanged: (value) {
+              _model.collectionName = value;
             },
             maxLines: 1,
             autocorrect: false,
@@ -50,10 +53,11 @@ class _CollectionInfoBodyState extends State<CollectionInfoBody> {
           padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
           child: TextField(
             controller: _descriptionInputController,
-            onEditingComplete: () {
-              Provider.of<CreateCollectionModel>(context).collectionDescription = _descriptionInputController.text;
+            onChanged: (value) {
+              _model.collectionDescription = value;
             },
-            maxLines: 10,
+            minLines: 3,
+            maxLines: 5,
             autocorrect: false,
             decoration: InputDecoration(
               hintText: 'description',

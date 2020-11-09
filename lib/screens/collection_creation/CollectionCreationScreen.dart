@@ -27,7 +27,8 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
 
     _onFinishPressed() {
       // Set the collection name and description
-
+      Provider.of<CreateCollectionModel>(context, listen: false).commitCollection();
+      Navigator.popUntil(context, ModalRoute.withName('/'));
     }
 
     return DefaultTabController (
