@@ -1,7 +1,10 @@
+import 'package:DigitalCollectionApp/loginScreens/forgot_password.dart';
 import 'package:DigitalCollectionApp/loginScreens/registerScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_management/CollectionManagementScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:DigitalCollectionApp/services/Auth.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,6 +19,8 @@ class _loginScreen extends State<loginScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,7 @@ class _loginScreen extends State<loginScreen> {
                     padding: EdgeInsets.all(10),
                     child:ImageIcon(
                 AssetImage('assets/images/icon.png'),
-                color: Colors.deepOrange,
+                color: Colors.lightBlue,
                 size: 150,),),
                 Container(
                   padding: EdgeInsets.all(10),
@@ -71,7 +76,8 @@ class _loginScreen extends State<loginScreen> {
                 ),
                 FlatButton(
                   onPressed: (){
-                    //forgot password screen
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => (forgotScreen())));
                   },
                   textColor: Colors.blue,
                   child: Text('Forgot Password'),

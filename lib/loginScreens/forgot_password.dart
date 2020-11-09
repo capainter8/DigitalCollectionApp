@@ -1,20 +1,25 @@
 
-import 'package:DigitalCollectionApp/services/Auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-
-class registerScreen extends StatefulWidget {
+class forgotScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _registerScreen();
+    return _forgotScreen();
   }
 }
 
-class _registerScreen extends State<registerScreen> {
+class _forgotScreen extends State<forgotScreen> {
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+ TextEditingController emailController = TextEditingController();
+
+ void resetPassowrd(BuildContext buildContext)async
+    {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email:emailController.text);
+      Fluttertoast.showToast(msg: "Email has been sent to reset your password");
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class _registerScreen extends State<registerScreen> {
           title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Sign Up"),
+            Text("Reset Password"),
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: ImageIcon(
@@ -45,7 +50,7 @@ class _registerScreen extends State<registerScreen> {
                     padding: EdgeInsets.all(10),
                     child:ImageIcon(
                 AssetImage('assets/images/icon.png'),
-                color: Colors.lightBlue,
+                color: Colors.deepOrange,
                 size: 150,),),
                 Container(
                   padding: EdgeInsets.all(10),
@@ -57,40 +62,16 @@ class _registerScreen extends State<registerScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
-                  ),
-                ),
-                Container(
+               Container(
                     height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: RaisedButton(
                       textColor: Colors.white,
                       color: Colors.black,
-                      child: Text('Register' ,style: TextStyle(fontSize: 20)),
+                      child: Text('Reset Password' ,style: TextStyle(fontSize: 20)),
                       onPressed: () {
-                        //register
-                        context.read<Auth>().register(
-                          email: emailController.text,
-                          password: passwordController.text
-                        );
+                            
                         
-                         //add to cloud
-                        /*FirebaseFirestore.instance.collection("users").doc(emailController.text).set(
-                          {
-                            'email': emailController.text,
-                            'password': passwordController.text
-                            });*/
-
-                     
-                     
                       },
                     )),
               ],
