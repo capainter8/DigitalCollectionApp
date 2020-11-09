@@ -24,6 +24,12 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
   }
 
   Widget _buildTabController() {
+
+    _onFinishPressed() {
+      // Set the collection name and description
+
+    }
+
     return DefaultTabController (
       length: 2,
       child: Scaffold(
@@ -34,7 +40,13 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
                   Tab(text: 'Info'),
                   Tab(text: 'Fields')
                 ],
+              ),
+            actions: [
+              FlatButton(
+                child: Text('FINISH'),
+                onPressed: _onFinishPressed,
               )
+            ],
           ),
           body: TabBarView(
             children: [

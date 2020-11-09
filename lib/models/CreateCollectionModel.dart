@@ -22,6 +22,9 @@ class CreateCollectionModel extends ChangeNotifier {
   // The current field that is selected in the data table
   f.Field _selectedField;
 
+  String collectionName;
+  String collectionDescription;
+
   CreateCollectionModel() {
     newCollection = Collection();
     newSchema = Schema();
@@ -32,11 +35,6 @@ class CreateCollectionModel extends ChangeNotifier {
       f.FieldUtil.load(f.FieldType.DecimalField, 'Test Field 3', 100.0),
     ]);
     _selectedField = null;
-  }
-
-  /// Save the schema to the collection
-  void commitSchema() {
-    newCollection.schema = newSchema;
   }
 
   /// Add the collection to the collection manager
