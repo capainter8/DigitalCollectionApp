@@ -20,23 +20,23 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => CreateCollectionModel()),
           ChangeNotifierProvider(create: (context) => CollectionManager.instance)
         ],
-
         child: MaterialApp(
             title: 'Collection App',
             theme: ThemeData(
-                primarySwatch: Colors.lightBlue,
-                accentColor: Colors.lightBlueAccent
+              primarySwatch: Colors.lightBlue,
+              accentColor: Colors.lightBlueAccent,
             ),
             initialRoute: '/',
             routes: {
               '/': (context) => CollectionManagementScreen(),
               '/create_collection': (context) => CollectionCreationScreen(),
-              '/view_collection': (context) => CollectionViewScreen('some collection'),
-              '/create_collection/select_field_type': (context) => FieldTypeSelectScreen(),
-              '/create_collection/create_field': (context) => CreateFieldScreen()
-            }
-        )
+              '/view_collection': (context) =>
+                  CollectionViewScreen('some collection'),
+              '/create_collection/select_field_type': (context) =>
+                  FieldTypeSelectScreen(),
+              '/create_collection/create_field': (context) =>
+                  CreateFieldScreen()
+            })
     );
   }
 }
-

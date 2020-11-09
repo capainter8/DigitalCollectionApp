@@ -13,6 +13,9 @@ class CreateCollectionModel extends ChangeNotifier {
   // The current field that is selected in the data table
   SchemaEntry _selectedField;
 
+  String collectionName;
+  String collectionDescription;
+
   CreateCollectionModel() {
     fields = List<SchemaEntry>();
     fields.addAll([

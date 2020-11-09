@@ -25,7 +25,7 @@ class FieldTypeSelect extends StatelessWidget {
           );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(),
-        itemCount: f.FieldType.values.length
+        itemCount: f.FieldType.values.length - 1
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
+import 'package:DigitalCollectionApp/screens/collection_creation/CollectionInfoBody.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,12 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
   }
 
   Widget _buildTabController() {
+
+    _onFinishPressed() {
+      // Set the collection name and description
+
+    }
+
     return DefaultTabController (
       length: 2,
       child: Scaffold(
@@ -34,24 +41,16 @@ class _CollectionCreationScreenState extends State<CollectionCreationScreen> {
                   Tab(text: 'Fields')
                 ],
               ),
-              actions: [
-                Consumer<CreateCollectionModel> (
-                  builder: (context, model, child) {
-                    return FlatButton(
-                      child: Text('Finish'),
-                      onPressed: () {
-                        model.commitCollection();
-                        // Go back to the main screen
-                        Navigator.popUntil(context, ModalRoute.withName('/'));
-                      }
-                    );
-                  },
-                )
-              ],
+            actions: [
+              FlatButton(
+                child: Text('FINISH'),
+                onPressed: _onFinishPressed,
+              )
+            ],
           ),
           body: TabBarView(
             children: [
-              Text('Collection Info Screen'),
+              CollectionInfoBody(),
               SchemaEditBody()
             ],
           )
