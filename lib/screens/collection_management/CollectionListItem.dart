@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/screens/collection_management/CollectionListItemPopupMenu.dart';
+import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/Collection.dart';
@@ -14,9 +15,17 @@ class CollectionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
-      child: Row(
+    return 
+  InkWell(
+    onTap:(){
+      Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => CollectionViewScreen(collection.name),
+  ));
+    },
+     child: Padding(
+        padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
+     child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible (
@@ -45,6 +54,9 @@ class CollectionListItem extends StatelessWidget {
           ),
         ],
       )
-    );
+    ));
   }
 }
+
+
+

@@ -1,6 +1,7 @@
 import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -128,12 +129,25 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: FloatingActionButton.extended(
+            heroTag: "btn1",
               onPressed: () {
                 // Navigate to create field screen
                 Navigator.pushNamed(context, '/create_collection/select_field_type');
               },
               label: Text('New Field'),
               icon: Icon(Icons.add)
+          ),
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton.extended(
+            heroTag: "btn2",
+              onPressed: () {
+                // Navigate to Template list screen
+                Navigator.pushNamed(context, '/create_collection/listTemplates');
+              },
+              label: Text('View Templates'),
+              icon:Icon(CupertinoIcons.eye_fill)
           ),
         ),
       ],
