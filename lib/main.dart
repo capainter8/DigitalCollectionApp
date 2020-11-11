@@ -1,11 +1,7 @@
 import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/CreateFieldScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/FieldTypeSelectScreen.dart';
-import 'package:DigitalCollectionApp/screens/collection_creation/Template_list.dart';
 import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
-import 'package:DigitalCollectionApp/screens/template_screens/book_collection_template.dart';
-import 'package:DigitalCollectionApp/screens/template_screens/coin_collection_template.dart';
-import 'package:DigitalCollectionApp/screens/template_screens/stamps_template.dart';
 import 'package:DigitalCollectionApp/services/CollectionManager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,15 +36,6 @@ class MyApp extends StatelessWidget {
                   FieldTypeSelectScreen(),
               '/create_collection/create_field': (context) =>
                   CreateFieldScreen(),
-              '/create_collection/listTemplates':(context) =>
-                  TemplateScreen(),
-              '/currencycollection':(context) =>
-                  currencyTemplate(),
-              '/bookcollection':(context) =>
-                  bookTemplate(),
-              '/stampcollection':(context) =>
-                  stampTemplate(),    
-
             })
     );
   }

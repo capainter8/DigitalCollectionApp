@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:DigitalCollectionApp/services/CollectionManager.dart';
 import 'package:flutter/material.dart';
 import 'Collection.dart';
@@ -19,13 +18,68 @@ class CreateCollectionModel extends ChangeNotifier {
   CreateCollectionModel() {
     fields = List<SchemaEntry>();
     fields.addAll([
-      SchemaEntry('Text Field 1', f.FieldType.TextField, required: true),
+      SchemaEntry('Text Field 2', f.FieldType.TextField, required: true),
       SchemaEntry('Text Field 2', f.FieldType.TextField),
       SchemaEntry('Decimal Field 1', f.FieldType.DecimalField, required: true),
       SchemaEntry('Decimal Field 2', f.FieldType.DecimalField)
+      
     ]);
     _selectedField = null;
   }
+
+
+  viewBookTemplate()
+  {
+    fields.clear();
+    notifyListeners();
+     fields = List<SchemaEntry>();
+    fields.addAll([
+      SchemaEntry('Title', f.FieldType.TextField, required: true),
+      SchemaEntry('Author', f.FieldType.TextField,required: true),
+      SchemaEntry('Year/Era', f.FieldType.TextField, required: true),
+      SchemaEntry('Genre', f.FieldType.TextField,),
+      SchemaEntry('Edition', f.FieldType.TextField,),
+    ]);
+    _selectedField = null;
+    
+  }
+
+   viewStampTemplate()
+  {
+    fields.clear();
+    notifyListeners();
+     fields = List<SchemaEntry>();
+    fields.addAll([
+      SchemaEntry('Type', f.FieldType.TextField, required: true),
+      SchemaEntry('Theme', f.FieldType.TextField,required: true),
+      SchemaEntry('Year/Era', f.FieldType.TextField, required: true),
+      SchemaEntry('Value', f.FieldType.TextField),
+      SchemaEntry('Sheets', f.FieldType.TextField)
+
+    ]);
+    _selectedField = null;
+    
+  }
+
+
+   viewCoinTemplate()
+  {
+    fields.clear();
+    notifyListeners();
+     fields = List<SchemaEntry>();
+    fields.addAll([
+     
+      SchemaEntry('Type', f.FieldType.TextField, required: true),
+      SchemaEntry('Value', f.FieldType.TextField,required: true),
+      SchemaEntry('Year/Era', f.FieldType.TextField, required: true),
+      SchemaEntry('Mint Mark', f.FieldType.TextField),
+      SchemaEntry('Composition', f.FieldType.TextField),
+    ]);
+    _selectedField = null;
+    
+  }
+
+
 
   /// Add the collection to the collection manager
   void commitCollection() async {
