@@ -1,3 +1,5 @@
+import 'package:DigitalCollectionApp/models/Collection.dart';
+import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
 import 'package:flutter/material.dart';
 import 'CollectionListView.dart';
 
@@ -29,3 +31,4 @@ class _CollectionManagementScreen extends State<CollectionManagementScreen> {
     );
   }
 }
+

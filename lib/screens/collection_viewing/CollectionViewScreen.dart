@@ -27,11 +27,11 @@ class _ViewScreenState extends State<CollectionViewScreen> {
       appBar: AppBar(
         title: Text(collectionName),
       ),
-      body: Column(
-        children: [
+      body: //Column(
+        //children: [
           CollectionItemList(CollectionViewerProxy(collectionName)),
-        ]
-      )
+        //]
+      //)
     );
   }
 }

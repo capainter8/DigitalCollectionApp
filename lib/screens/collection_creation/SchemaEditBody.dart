@@ -1,6 +1,9 @@
+import 'package:DigitalCollectionApp/models/Collection.dart';
 import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
+import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +22,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<CreateCollectionModel> (
+    return  Consumer<CreateCollectionModel> (
       builder: (context, model, child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,24 +119,77 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
   _buildFieldControlBar(CreateCollectionModel model) {
     return Column(
     children: [
-      _buildFloatingActionButton(),
+      _buildFloatingActionButton(model),
       _buildControlBar(model)
     ]);
   }
 
-  _buildFloatingActionButton() {
+  showTemplateList(BuildContext context,CreateCollectionModel model)
+  {
+      showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return Container(
+            height: MediaQuery.of(context).size.height  * 0.4,
+            child: Center(
+              child: ListView(
+              children: <Widget>[
+        ListTile(
+        leading: Icon(CupertinoIcons.money_dollar),
+        title: Text('Coin Collection Template'),
+        onTap: (){
+         model.viewCoinTemplate();
+         Navigator.pop(context);
+        },
+        ),
+        ListTile(
+          leading: Icon(CupertinoIcons.book),
+          title: Text('Book Collection Template'),
+          onTap: (){
+              model.viewBookTemplate();
+              Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: Icon(CupertinoIcons.envelope),
+          title: Text('Stamp Collection Template'),
+          onTap: (){
+                model.viewStampTemplate();
+                Navigator.pop(context);
+          },
+        ),
+      ],
+    ),
+                ),
+              );
+            });
+      }
+
+  _buildFloatingActionButton(CreateCollectionModel model) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: FloatingActionButton.extended(
+            heroTag: "btn1",
               onPressed: () {
                 // Navigate to create field screen
                 Navigator.pushNamed(context, '/create_collection/select_field_type');
               },
               label: Text('New Field'),
               icon: Icon(Icons.add)
+          ),
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton.extended(
+            heroTag: "btn2",
+              onPressed: () {
+                      showTemplateList(context,model);          
+              },
+              label: Text('View Templates'),
+              icon:Icon(CupertinoIcons.eye_fill)
           ),
         ),
       ],
