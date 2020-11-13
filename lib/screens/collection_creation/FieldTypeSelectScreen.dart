@@ -21,6 +21,7 @@ class FieldTypeSelect extends StatelessWidget {
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return _buildListTile(
+            context,
             f.FieldType.values.elementAt(index)
           );
         },
@@ -29,16 +30,20 @@ class FieldTypeSelect extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(f.FieldType type) {
+  Widget _buildListTile(BuildContext context, f.FieldType type) {
     f.Field tmp = f.FieldUtil.load(type, null, null);
     return ListTile(
       leading: Icon(Icons.image),
       title: Text(fieldTypeToString(tmp.getType())),
-      onTap: () => onListTileTapped(type),
+      onTap: () => onListTileTapped(context, type),
     );
   }
 
-  void onListTileTapped(f.FieldType type) {
-
+  void onListTileTapped(BuildContext context, f.FieldType type) {
+    Navigator.pushNamed(
+      context,
+      '/create_collection/field_configuration',
+      arguments: type
+    );
   }
 }

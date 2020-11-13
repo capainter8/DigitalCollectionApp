@@ -1,5 +1,6 @@
 import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/CreateFieldScreen.dart';
+import 'package:DigitalCollectionApp/screens/collection_creation/FieldConfigScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/FieldTypeSelectScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_viewing/CollectionViewScreen.dart';
 import 'package:DigitalCollectionApp/services/CollectionManager.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
               '/create_collection/select_field_type': (context) =>
                   FieldTypeSelectScreen(),
               '/create_collection/create_field': (context) =>
-                  CreateFieldScreen()
+                  CreateFieldScreen(),
+              '/create_collection/field_configuration': (context) =>
+                  FieldConfigScreen(),
             })
     );
   }

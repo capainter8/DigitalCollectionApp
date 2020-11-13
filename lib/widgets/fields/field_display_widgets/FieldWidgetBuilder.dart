@@ -3,7 +3,7 @@
 /// Use this class to construct a widget for a specific field type.
 
 import 'package:flutter/material.dart';
-import '../../models/fields/Fields.dart' as fields;
+import '../../../models/fields/Fields.dart' as fields;
 import 'DecimalFieldWidget.dart';
 import 'TextFieldWidget.dart';
 

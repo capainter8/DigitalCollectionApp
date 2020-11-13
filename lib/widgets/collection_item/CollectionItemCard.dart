@@ -1,7 +1,7 @@
 import 'package:DigitalCollectionApp/models/CollectionItem.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
-import 'package:DigitalCollectionApp/widgets/fields/FieldWidgetBuilder.dart';
+import 'package:DigitalCollectionApp/widgets/fields/field_display_widgets/FieldWidgetBuilder.dart';
 import 'package:flutter/material.dart';
 
 class CollectionItemCard extends StatelessWidget {
