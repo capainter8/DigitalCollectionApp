@@ -1,6 +1,5 @@
-import 'package:DigitalCollectionApp/models/fields/FieldType.dart';
 import 'package:flutter/material.dart';
-import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
+import 'package:DigitalCollectionApp/models/fields/Fields.dart';
 
 class FieldTypeSelectScreen extends StatelessWidget {
   @override
@@ -22,24 +21,23 @@ class FieldTypeSelect extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return _buildListTile(
             context,
-            f.FieldType.values.elementAt(index)
+            FieldType.values.elementAt(index)
           );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(),
-        itemCount: f.FieldType.values.length - 1
+        itemCount: FieldType.values.length
     );
   }
 
-  Widget _buildListTile(BuildContext context, f.FieldType type) {
-    f.Field tmp = f.FieldUtil.load(type, null, null);
+  Widget _buildListTile(BuildContext context, FieldType type) {
     return ListTile(
       leading: Icon(Icons.image),
-      title: Text(fieldTypeToString(tmp.getType())),
+      title: Text(fieldTypeToString(type)),
       onTap: () => onListTileTapped(context, type),
     );
   }
 
-  void onListTileTapped(BuildContext context, f.FieldType type) {
+  void onListTileTapped(BuildContext context, FieldType type) {
     Navigator.pushNamed(
       context,
       '/create_collection/field_configuration',

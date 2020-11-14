@@ -1,4 +1,4 @@
-import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
+import 'package:DigitalCollectionApp/models/fields/Fields.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'dart:convert';
 
@@ -8,22 +8,20 @@ import 'dart:convert';
 
 class CollectionItem {
 
-  Map<String, f.Field> fields;
+  Map<String, Field> fields;
   Schema schema;
 
   CollectionItem(this.schema) {
-    fields = new Map<String, f.Field>();
+    fields = new Map<String, Field>();
   }
 
   void load(String jsonItem) {
     Map<String, dynamic> jsonMap = jsonDecode(jsonItem);
     for (var key in jsonMap.keys) {
       // Get the type of the field
-      f.FieldType type = schema.getEntryType(key);
-
+      FieldType type = schema.getEntryType(key);
       if (type != null) {
-        // Add a field of the appropriate type to the Collection Item
-        f.Field field = f.FieldUtil.load(type, key, jsonMap[key]);
+        Field field = loadField(type, key, jsonMap[key]);
         fields[key] = field;
       }
       else {
@@ -35,12 +33,12 @@ class CollectionItem {
   String serialize() {
     Map<String, dynamic> jsonMap = new Map();
     for (var key in fields.keys) {
-      jsonMap[key] = f.FieldUtil.getValue(fields[key]);
+      jsonMap[key] = fields[key].serialize();
     }
     return jsonEncode(jsonMap);
   }
 
-  f.Field getField(String name) {
+  Field getField(String name) {
     if (schema.getEntryNames().contains(name)) {
       return fields[name];
     }
@@ -49,7 +47,7 @@ class CollectionItem {
     }
   }
 
-  void addField(f.Field field) {
+  void addField(Field field) {
     fields[field.name] = field;
   }
 
@@ -64,7 +62,7 @@ class CollectionItem {
 
   void updateField(String name, dynamic newValue) {
     if (schema.getEntryNames().contains(name)) {
-      f.FieldUtil.setValue(fields[name], newValue);
+      fields[name].value(newValue);
     }
     else {
       throw Exception("Field not in schema");
@@ -73,5 +71,15 @@ class CollectionItem {
 
   List<String> getFieldNames() {
     return schema.getEntryNames();
+  }
+
+  compareTo(CollectionItem other, Field toCompare) {
+    if (toCompare is ComparableField) {
+      ComparableField fieldA = this.getField(toCompare.name) as ComparableField;
+      Field fieldB = other.getField(toCompare.name);
+      return fieldA.compareTo(fieldB);
+    } else {
+      throw Exception("Tried to compare a collection item using a non-comparable field");
+    }
   }
 }

@@ -1,12 +1,6 @@
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'dart:convert';
-
-/// Collection.dart
-///
-///
-
 import "CollectionItem.dart";
-import "package:flutter/widgets.dart";
 
 class Collection {
 
@@ -21,9 +15,9 @@ class Collection {
   Collection._();
 
   Collection.buildNew({
-    @required this.name,
-    @required this.description,
-    @required this.schema }) {
+    this.name,
+    this.description,
+    this.schema }) {
 
     id = DateTime.now().millisecondsSinceEpoch;
     creationDate = DateTime.now();
@@ -31,12 +25,12 @@ class Collection {
   }
 
   Collection.fromExisting({
-    @required this.id,
-    @required this.name,
-    @required this.description,
-    @required this.creationDate,
-    @required String itemsJson,
-    @required this.schema}) {
+    this.id,
+    this.name,
+    this.description,
+    this.creationDate,
+    String itemsJson,
+    this.schema}) {
 
     loadItems(itemsJson);
   }

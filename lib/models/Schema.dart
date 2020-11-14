@@ -1,11 +1,8 @@
-import 'package:DigitalCollectionApp/screens/collection_creation/FieldTypeSelectScreen.dart';
-import 'package:flutter/material.dart';
-
 /// Schema.dart
 ///
 /// A schema represents all of the fields in a collection.
 
-import 'fields/FieldType.dart';
+import 'fields/Fields.dart';
 import 'dart:convert';
 
 class SchemaEntry {
@@ -20,14 +17,14 @@ class Schema {
   List<SchemaEntry> _entries;
 
   Schema.fromList({
-    @required List<SchemaEntry> entries}) {
+    List<SchemaEntry> entries}) {
 
     _entries = List();
     _entries.addAll(entries);
   }
 
   Schema.fromJson({
-    @required String json }) {
+    String json }) {
 
     _entries = deserialize(json);
   }
@@ -66,14 +63,14 @@ class Schema {
   }
 
   List<String> getEntryNames() {
-    return _entries.map((e) => e.name);
+    return _entries.map((e) => e.name).toList();
   }
 
   // Get the type of an entry
   FieldType getEntryType(String name) {
       return _entries.firstWhere(
           (entry) => entry.name == name,
-          orElse: () => SchemaEntry(null, FieldType.Unknown)
+          orElse: () => SchemaEntry(null, null)
       ).type;
   }
 

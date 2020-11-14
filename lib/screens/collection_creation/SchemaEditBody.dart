@@ -1,9 +1,6 @@
-import 'package:DigitalCollectionApp/models/Collection.dart';
 import 'package:DigitalCollectionApp/models/CreateCollectionModel.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
-import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
-import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:DigitalCollectionApp/models/fields/Fields.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -103,7 +100,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
           },
           cells: [
             DataCell(Text(field.name)),
-            DataCell(Text(f.fieldTypeToString(field.type))),
+            DataCell(Text(fieldTypeToString(field.type))),
             DataCell(Text(_getRequiredString(field.required)))
           ]);
       rows.add(row);
@@ -135,7 +132,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
               child: ListView(
               children: <Widget>[
         ListTile(
-        leading: Icon(CupertinoIcons.money_dollar),
+        leading: Icon(Icons.attach_money),
         title: Text('Coin Collection Template'),
         onTap: (){
          model.viewCoinTemplate();
@@ -143,7 +140,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
         },
         ),
         ListTile(
-          leading: Icon(CupertinoIcons.book),
+          leading: Icon(Icons.book),
           title: Text('Book Collection Template'),
           onTap: (){
               model.viewBookTemplate();
@@ -151,7 +148,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
           },
         ),
         ListTile(
-          leading: Icon(CupertinoIcons.envelope),
+          leading: Icon(Icons.mail),
           title: Text('Stamp Collection Template'),
           onTap: (){
                 model.viewStampTemplate();
@@ -189,7 +186,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
                       showTemplateList(context,model);          
               },
               label: Text('View Templates'),
-              icon:Icon(CupertinoIcons.eye_fill)
+              icon:Icon(Icons.remove_red_eye)
           ),
         ),
       ],

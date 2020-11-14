@@ -1,4 +1,5 @@
-import 'package:DigitalCollectionApp/models/fields/field_model.dart';
+import 'package:DigitalCollectionApp/models/fields/Fields.dart';
+import 'package:DigitalCollectionApp/widgets/fields/field_configuration_forms/DateFieldConfigWidget.dart';
 import 'package:DigitalCollectionApp/widgets/fields/field_configuration_forms/DecimalFieldConfigWidget.dart';
 import 'package:DigitalCollectionApp/widgets/fields/field_configuration_forms/TextFieldConfigWidget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,10 @@ class FieldConfigScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Configure Field"),
       ),
-      body: _getConfigurationForm(type),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: _getConfigurationForm(type),
+      ),
     );
   }
 
@@ -26,6 +30,8 @@ class FieldConfigScreen extends StatelessWidget {
         return TextFieldConfigWidget();
       case FieldType.DecimalField:
         return DecimalFieldConfigWidget();
+      case FieldType.DateField:
+        return DateFieldConfigWidget();
       default:
         throw UnimplementedError("Configuration form not implemented for given field type");
     }

@@ -1,11 +1,7 @@
-import 'package:DigitalCollectionApp/models/CollectionItem.dart';
-import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/screens/collection_management/CollectionListItem.dart';
-import 'package:DigitalCollectionApp/services/LocalDatabase.dart';
 import 'package:flutter/material.dart';
 import '../../models/Collection.dart';
 import '../../services/CollectionManager.dart';
-import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
 import 'package:provider/provider.dart';
 
 class CollectionListView extends StatefulWidget {

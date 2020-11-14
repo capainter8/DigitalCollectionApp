@@ -1,8 +1,8 @@
 import 'package:DigitalCollectionApp/models/CollectionItem.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
-import 'package:DigitalCollectionApp/models/fields/field_model.dart' as f;
 import 'package:DigitalCollectionApp/widgets/fields/field_display_widgets/FieldWidgetBuilder.dart';
 import 'package:flutter/material.dart';
+import 'package:DigitalCollectionApp/models/fields/Fields.dart';
 
 class CollectionItemCard extends StatelessWidget {
 
@@ -25,7 +25,7 @@ class CollectionItemCard extends StatelessWidget {
     Schema schema = item.schema;
     List<String> keys = schema.getEntryNames();
     for (var key in keys) {
-      f.Field field = item.getField(key);
+      Field field = item.getField(key);
       widgets.add(FieldWidgetBuilder.build(field));
     }
 
