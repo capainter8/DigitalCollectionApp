@@ -88,4 +88,12 @@ class Schema {
     }
     return null;
   }
+
+  SchemaEntry getEntry(String name) {
+    return _entries.firstWhere((element) => element.name == name);
+  }
+
+  SchemaEntry getEntryFromIndex(int index) {
+    return _entries[index];
+  }
 }

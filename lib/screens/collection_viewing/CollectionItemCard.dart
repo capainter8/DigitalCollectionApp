@@ -16,6 +16,7 @@ class CollectionItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 8.0,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -39,7 +40,7 @@ class CollectionItemCard extends StatelessWidget {
     List<String> keys = schema.getEntryNames();
     for (var key in keys) {
       Field field = item.getField(key);
-      widgets.add(FieldWidgetBuilder.build(field));
+      widgets.add(FieldWidgetBuilder.build(field, schema.getEntry(key).required));
     }
 
     return widgets;

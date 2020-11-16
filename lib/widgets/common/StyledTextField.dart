@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class StyledTextField extends StatefulWidget {
-
-  String hint;
-  StyledTextField({this.hint});
+  final String hint;
+  var onChanged;
+  StyledTextField({this.hint, this.onChanged});
 
   @override
   _StyledTextFieldState createState() => _StyledTextFieldState();
@@ -18,11 +18,14 @@ class _StyledTextFieldState extends State<StyledTextField> {
           child: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: this.widget.hint
-            )
+              hintText: this.widget.hint,
+            ),
+            onChanged: (value) {
+              this.widget.onChanged(value);
+            }
           ),
-        )
-      ]
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'package:DigitalCollectionApp/models/fields/Fields.dart' as f;
+import 'package:DigitalCollectionApp/widgets/common/field_input_lines/DateInputLine.dart';
 import 'package:DigitalCollectionApp/widgets/common/field_input_lines/TextInputLine.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,8 @@ class FieldEditFormBuilder {
     switch (entry.type) {
       case f.FieldType.TextField:
         return TextInputLine(entry);
-      case f.FieldType.TextField:
-        return Text("Not Implemented");
+      case f.FieldType.DateField:
+        return DateInputLine(entry);
       case f.FieldType.TextField:
         return Text("Not Implemented");
       case f.FieldType.TextField:

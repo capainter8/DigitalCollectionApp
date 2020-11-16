@@ -1,33 +1,32 @@
+import 'package:DigitalCollectionApp/models/Schema.dart';
+import 'package:DigitalCollectionApp/widgets/fields/field_display_widgets/DateFieldWidget.dart';
 /// FieldWidgetBuilder.dart
 ///
 /// Use this class to construct a widget for a specific field type.
 
 import 'package:flutter/material.dart';
-import '../../../models/fields/Fields.dart' as fields;
+import '../../../models/fields/Fields.dart' as f;
 import 'DecimalFieldWidget.dart';
 import 'TextFieldWidget.dart';
 
 class FieldWidgetBuilder {
-
-  static _Visitor visitor = _Visitor();
-
-  static Widget build(fields.Field field) {
-    field.accept(visitor);
-    return visitor.widget;
-  }
-}
-
-class _Visitor implements fields.FieldVisitor {
-
-  Widget widget;
-
-  @override
-  void visit(fields.Field field) {
-    if (field is fields.TextField) {
-      widget = new TextFieldWidget(field);
+  static Widget build(f.Field field, bool required) {
+    if (field.value == null) {
+      if (required) {
+        throw("Required field was null in FieldWidgetBuilder");
+      } else {
+        return Container();
+      }
     }
-    else if (field is fields.DecimalField) {
-      widget = new DecimalFieldWidget(field);
+
+    if (field is f.TextField) {
+      return TextFieldWidget(field);
+    }
+    else if (field is f.DecimalField) {
+      return DecimalFieldWidget(field);
+    }
+    else if (field is f.DateField) {
+      return DateFieldWidget(field);
     }
     else {
       throw("An unimplemented field type was passed to the field widget builder.");

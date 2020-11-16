@@ -82,4 +82,12 @@ class CollectionItem {
       throw Exception("Tried to compare a collection item using a non-comparable field");
     }
   }
+
+  String searchBlob() {
+    return fields.values.map((field) {
+      return field.serialize().toString();
+    }).reduce((s1, s2) {
+      return s1 + s2;
+    });
+  }
 }

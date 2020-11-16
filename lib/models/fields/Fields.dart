@@ -17,8 +17,6 @@ abstract class Field {
     _value = _deserialize(serialized);
   }
 
-  void accept(FieldVisitor visitor) => visitor.visit(this);
-
   get value;
   set value(dynamic value);
 
@@ -26,10 +24,6 @@ abstract class Field {
 
   dynamic serialize();
   dynamic _deserialize(dynamic serialized);
-}
-
-abstract class FieldVisitor {
-  void visit(Field field);
 }
 
 /// Text Field -----------------------------------------------------------------
@@ -201,6 +195,29 @@ String fieldTypeToString(FieldType type) {
   }
 }
 
+Field makeField(FieldType type, String name, dynamic value) {
+  switch (type) {
+    case FieldType.TextField:
+      _guardType(value, String);
+      return TextField(name, value);
+
+    case FieldType.DecimalField:
+      _guardType(value, double);
+      return DecimalField(name, value);
+
+    case FieldType.DateField:
+      _guardType(value, DateTime);
+      return DateField(name, value);
+
+    case FieldType.IntegerField:
+      _guardType(value, int);
+      return IntegerField(name, value);
+
+    default:
+      throw Exception("Tried make field from unknown type");
+  }
+}
+
 Field loadField(FieldType type, String name, dynamic value) {
   switch (type) {
     case FieldType.TextField:
@@ -225,7 +242,7 @@ Field loadField(FieldType type, String name, dynamic value) {
 }
 
 _guardType(dynamic value, Type targetType) {
-  if (value.runtimeType != targetType)
+  if (value.runtimeType != targetType && value != null)
     throw FormatException(_formatExceptionMessage(value, targetType));
 }
 

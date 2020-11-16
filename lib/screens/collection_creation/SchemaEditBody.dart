@@ -150,7 +150,9 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
               onPressed: () {
                 // Navigate to create field screen
                 Navigator.pushNamed(
-                    context, '/create_collection/select_field_type');
+                  context,
+                  '/create_collection/select_field_type',
+                );
               },
               label: Text('Add Field'),
               icon: Icon(Icons.add)),

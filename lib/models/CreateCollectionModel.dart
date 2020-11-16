@@ -6,7 +6,6 @@ import 'Schema.dart';
 import 'fields/Fields.dart';
 
 class CreateCollectionModel extends ChangeNotifier {
-
   List<SchemaEntry> fields;
 
   // The current field that is selected in the data table
@@ -20,47 +19,45 @@ class CreateCollectionModel extends ChangeNotifier {
     _selectedField = null;
   }
 
-
-  viewBookTemplate()
-  {
+  viewBookTemplate() {
     fields.clear();
     notifyListeners();
-     fields = List<SchemaEntry>();
+    fields = List<SchemaEntry>();
     fields.addAll([
       SchemaEntry('Title', FieldType.TextField, required: true),
-      SchemaEntry('Author', FieldType.TextField,required: true),
+      SchemaEntry('Author', FieldType.TextField, required: true),
       SchemaEntry('Year/Era', FieldType.TextField, required: true),
-      SchemaEntry('Genre', FieldType.TextField,),
-      SchemaEntry('Edition', FieldType.TextField,),
+      SchemaEntry(
+        'Genre',
+        FieldType.TextField,
+      ),
+      SchemaEntry(
+        'Edition',
+        FieldType.TextField,
+      ),
     ]);
     _selectedField = null;
-    
   }
 
-   viewStampTemplate()
-  {
+  viewStampTemplate() {
     fields.clear();
     notifyListeners();
-     fields = List<SchemaEntry>();
+    fields = List<SchemaEntry>();
     fields.addAll([
       SchemaEntry('Type', FieldType.TextField, required: true),
-      SchemaEntry('Theme', FieldType.TextField,required: true),
+      SchemaEntry('Theme', FieldType.TextField, required: true),
       SchemaEntry('Year/Era', FieldType.TextField, required: true),
       SchemaEntry('Value', FieldType.TextField),
       SchemaEntry('Sheets', FieldType.TextField)
-
     ]);
     _selectedField = null;
-    
   }
 
-   viewCoinTemplate()
-  {
+  viewCoinTemplate() {
     fields.clear();
     notifyListeners();
-     fields = List<SchemaEntry>();
+    fields = List<SchemaEntry>();
     fields.addAll([
-     
       SchemaEntry('Type', FieldType.TextField, required: true),
       SchemaEntry('Value', FieldType.TextField, required: true),
       SchemaEntry('Year/Era', FieldType.TextField, required: true),
@@ -68,17 +65,17 @@ class CreateCollectionModel extends ChangeNotifier {
       SchemaEntry('Composition', FieldType.TextField),
     ]);
     _selectedField = null;
-    
   }
 
   /// Add the collection to the collection manager
   void commitCollection() async {
-
     // Create the schema
     Schema schema = Schema.fromList(entries: fields);
 
-    int nCollections = (await CollectionManager.instance.getAllCollections()).length;
-    if (collectionName == null) collectionName = 'New Collection  ' + nCollections.toString();
+    int nCollections =
+        (await CollectionManager.instance.getAllCollections()).length;
+    if (collectionName == null)
+      collectionName = 'New Collection  ' + nCollections.toString();
 
     if (collectionDescription == null) collectionDescription = 'No description';
 
@@ -118,20 +115,21 @@ class CreateCollectionModel extends ChangeNotifier {
     } else {
       _selectedField = null;
     }
-    
+
     notifyListeners();
   }
 
   void moveSelectedFieldUp() {
     // can the field go up?
     int pos = fields.indexOf(_selectedField);
-    if (pos < 1) { // the selected field is a the top already
+    if (pos < 1) {
+      // the selected field is a the top already
       return; // Do nothing
     }
 
     SchemaEntry tmp = fields[pos];
-    fields[pos] = fields[pos-1];
-    fields[pos-1] = tmp;
+    fields[pos] = fields[pos - 1];
+    fields[pos - 1] = tmp;
 
     notifyListeners();
   }
@@ -139,13 +137,14 @@ class CreateCollectionModel extends ChangeNotifier {
   void moveSelectedFieldDown() {
     // Can the field go down?
     int pos = fields.indexOf(_selectedField);
-    if (pos > fields.length - 2 || pos < 0) { // The selected field is at the bottom
+    if (pos > fields.length - 2 || pos < 0) {
+      // The selected field is at the bottom
       return; // Do nothing
     }
 
     SchemaEntry tmp = fields[pos];
-    fields[pos] = fields[pos+1];
-    fields[pos+1] = tmp;
+    fields[pos] = fields[pos + 1];
+    fields[pos + 1] = tmp;
 
     notifyListeners();
   }
@@ -157,5 +156,12 @@ class CreateCollectionModel extends ChangeNotifier {
 
   SchemaEntry get selectedField {
     return _selectedField;
+  }
+
+  bool hasFieldName(String name) {
+    return fields
+        .map((entry) => entry.name.toLowerCase())
+        .toList()
+        .contains(name.toLowerCase());
   }
 }
