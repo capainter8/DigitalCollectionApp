@@ -1,8 +1,10 @@
 import 'package:DigitalCollectionApp/models/Schema.dart';
+import 'package:DigitalCollectionApp/services/CollectionManager.dart';
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import "CollectionItem.dart";
 
-class Collection {
+class Collection extends ChangeNotifier {
 
   int id;
   String name;
@@ -37,6 +39,14 @@ class Collection {
 
   void add(CollectionItem item) {
     items.add(item);
+    CollectionManager.instance.updateCollection(this);
+    notifyListeners();
+  }
+
+  void removeItem(CollectionItem item) {
+    items.remove(item);
+    CollectionManager.instance.updateCollection(this);
+    notifyListeners();
   }
 
   String serializeItems() {

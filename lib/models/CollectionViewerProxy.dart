@@ -19,8 +19,11 @@ class CollectionViewerProxy {
   CollectionViewerProxy(String name) {
     collectionProxy = CollectionManager.instance.getCollection(name);
     schemaProxy = collectionProxy.schema;
-    itemsProxy = List.from(collectionProxy.items);
+    refresh();
   }
 
+  void refresh() {
+    itemsProxy = List.from(collectionProxy.items);
+  }
   // TODO: Add searching, sorting, and filtering capabilities
 }

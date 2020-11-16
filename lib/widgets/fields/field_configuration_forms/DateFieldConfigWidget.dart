@@ -1,7 +1,7 @@
+import 'file:///C:/Users/Cody/StudioProjects/DigitalCollectionApp/lib/widgets/common/field_input_lines/DateInputLine.dart';
 import 'package:DigitalCollectionApp/widgets/common/FormRowItem.dart';
 import 'package:DigitalCollectionApp/widgets/common/Label.dart';
 import 'package:DigitalCollectionApp/widgets/common/LabeledTextField.dart';
-import 'package:DigitalCollectionApp/widgets/common/TextLine.dart';
 import 'package:flutter/material.dart';
 
 class DateFieldConfigWidget extends StatefulWidget {
@@ -20,15 +20,6 @@ class _DateFieldConfigWidgetState extends State<DateFieldConfigWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // return Column(
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //  children: [
-    //    LabeledTextField(label: 'Field Name', hint: 'enter name...',),
-    //    StringLabel('Choose Date'),
-    //    _pickDateButton(Theme.of(context).accentColor),
-    //    TextLine(child: _getDateText())
-    //  ]
-    // );
 
     return Form(
       key: _formKey,
@@ -41,12 +32,6 @@ class _DateFieldConfigWidgetState extends State<DateFieldConfigWidget> {
               LabeledTextField(label: 'Field Name', hint: 'enter name...',),
             ],
           ),
-          FormRowItem(
-            children: [
-              StringLabel('Choose Date'),
-              _pickDateButton(Theme.of(context).accentColor)
-            ],
-          )
         ]
       )
     );

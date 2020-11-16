@@ -74,6 +74,10 @@ class Schema {
       ).type;
   }
 
+  List<SchemaEntry> getEntries() {
+    return _entries;
+  }
+
   // Convert string to enum
   FieldType _getFieldType(String fieldType) {
     for (var e in FieldType.values) {

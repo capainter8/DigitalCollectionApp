@@ -11,24 +11,24 @@ class CollectionManagementScreen extends StatefulWidget {
 }
 
 class _CollectionManagementScreen extends State<CollectionManagementScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Row(
-              children: [
-                Text("Collections"),
-              ],
-            )
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Text("Collections"),
+          ],
         ),
-        body: CollectionListView(),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.pushNamed(context, '/create_collection');
-          },
-        )
+      ),
+      body: CollectionListView(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.pushNamed(context, '/create_collection');
+        },
+      ),
     );
   }
 }
-

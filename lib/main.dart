@@ -1,3 +1,4 @@
+import 'package:DigitalCollectionApp/screens/CreateCollectionItemScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/CollectionCreationScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/CreateFieldScreen.dart';
 import 'package:DigitalCollectionApp/screens/collection_creation/FieldConfigScreen.dart';
@@ -31,8 +32,10 @@ class MyApp extends StatelessWidget {
             routes: {
               '/': (context) => CollectionManagementScreen(),
               '/create_collection': (context) => CollectionCreationScreen(),
-              '/view_collection': (context) =>
-                  CollectionViewScreen('some collection'),
+              CollectionViewScreen.route: (context) =>
+                  CollectionViewScreen(),
+              CreateCollectionItemScreen.route: (context) =>
+                  CreateCollectionItemScreen(),
               '/create_collection/select_field_type': (context) =>
                   FieldTypeSelectScreen(),
               '/create_collection/create_field': (context) =>

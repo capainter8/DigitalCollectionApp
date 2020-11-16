@@ -22,7 +22,8 @@ class CollectionManager extends ChangeNotifier {
 
   /// Updates the collection managers internal collection list with the local
   /// database.
-  Future<void> update() async {
+  Future<void> pull() async {
+    _collections.clear();
     List<Collection> temp = await LocalDatabase.instance.getAllCollections();
     temp.forEach((collection) {
       if (!_collections.contains(collection)) {
@@ -37,15 +38,20 @@ class CollectionManager extends ChangeNotifier {
     return _collections;
   }
 
-  void addCollectionItem(Collection collection, CollectionItem collectionItem) {
-    collection.add(collectionItem);
+  void addCollection(Collection collection) async {
+    await LocalDatabase.instance.insertCollection(collection);
+    _collections.add(collection);
+    notifyListeners();
   }
 
-  void addCollection(Collection collection) {
-    LocalDatabase.instance.insertCollection(collection);
-    _collections.add(collection);
-    // Notify the collection management page that there is a new collection
-    // in the manager so it can update its list.
+  void updateCollection(Collection collection) async {
+    await LocalDatabase.instance.updateCollection(collection);
+    notifyListeners();
+  }
+
+  void deleteCollection(Collection collection) async {
+    await LocalDatabase.instance.deleteCollection(collection);
+    await this.pull();
     notifyListeners();
   }
 

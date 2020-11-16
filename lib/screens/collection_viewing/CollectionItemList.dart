@@ -1,39 +1,35 @@
+import 'package:DigitalCollectionApp/models/Collection.dart';
 import 'package:DigitalCollectionApp/models/CollectionItem.dart';
 import 'package:DigitalCollectionApp/models/CollectionViewerProxy.dart';
 import 'package:DigitalCollectionApp/widgets/collection_item/CollectionItemCard.dart';
 import 'package:flutter/material.dart';
-
-/// CollectionItemList.dart
+import 'package:provider/provider.dart';
 
 class CollectionItemList extends StatefulWidget {
 
-  // A reference to the items in a collection
-  CollectionViewerProxy collection;
-
-  CollectionItemList(CollectionViewerProxy itemList) {
-    this.collection = itemList;
-  }
+  final CollectionViewerProxy collection;
+  CollectionItemList(this.collection);
 
   @override
   State<StatefulWidget> createState() {
-    return _ListItemState(collection.itemsProxy);
+    return _ListItemState();
   }
 }
 
 class _ListItemState extends State<CollectionItemList> {
 
-  List<CollectionItem> items;
-  _ListItemState(this.items);
-
   @override
   Widget build(BuildContext context) {
+
+    context.watch<Collection>();
+    this.widget.collection.refresh();
+
     return ListView.builder(
-      itemCount: items.length,
+      itemCount: this.widget.collection.itemsProxy.length,
       itemBuilder: (context, index) {
-        // get the collection
-        CollectionItem current = items.elementAt(index);
+        CollectionItem current = this.widget.collection.itemsProxy.elementAt(index);
         return CollectionItemCard(current);
-      }
+      },
     );
   }
 }

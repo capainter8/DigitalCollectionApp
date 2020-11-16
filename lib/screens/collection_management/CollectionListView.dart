@@ -1,4 +1,5 @@
 import 'package:DigitalCollectionApp/screens/collection_management/CollectionListItem.dart';
+import 'package:DigitalCollectionApp/widgets/common/TextLine.dart';
 import 'package:flutter/material.dart';
 import '../../models/Collection.dart';
 import '../../services/CollectionManager.dart';
@@ -12,10 +13,9 @@ class CollectionListView extends StatefulWidget {
 }
 
 class _CollectionListView extends State<CollectionListView> {
-
   @override
   void initState() {
-    CollectionManager.instance.update();
+    CollectionManager.instance.pull();
     super.initState();
   }
 
@@ -30,12 +30,25 @@ class _CollectionListView extends State<CollectionListView> {
         List<Widget> children = List<Widget>();
         if (snapshot.hasData) {
           children.addAll(snapshot.data.map((collection) {
-            return CollectionListItem(collection: collection);
+            return CollectionListItem(collection);
           }));
-        } else {
-          // Wait...
+          if (snapshot.data.length != 0) {
+
+          } else {
+            children.add(
+              Padding(
+                padding: const EdgeInsets.only(top: 24.0),
+                child: TextLine(
+                  'Tap + to create a collection',
+                  fontStyle: FontStyle.italic,
+                  color: Colors.black54,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          }
         }
-        return ListView.separated (
+        return ListView.separated(
           itemCount: children.length,
           itemBuilder: (context, index) {
             return children.elementAt(index);
@@ -44,7 +57,7 @@ class _CollectionListView extends State<CollectionListView> {
             return Divider();
           },
         );
-      }
+      },
     );
   }
 
