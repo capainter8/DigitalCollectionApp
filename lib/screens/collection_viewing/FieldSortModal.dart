@@ -33,7 +33,7 @@ class FieldSortModal extends StatelessWidget {
                 onTap: () {
                   if (proxy.itemsProxy.length != 0) {
                     var entry = proxy.schemaProxy.getEntryFromIndex(index);
-                    Field toSort = loadField(entry.type, entry.name, null);
+                    Field toSort = makeField(entry.type, entry.name, null);
                     proxy.sortByField(toSort);
                   }
                   Navigator.pop(context);

@@ -4,10 +4,16 @@ class CustomTextField extends StatefulWidget {
 
   final String hint;
   final Function (String) onChanged;
+  final TextInputType keyboard;
+  final AutovalidateMode autovalidateMode;
+  final Function (String) validator;
 
   CustomTextField({
     this.hint = "",
-    this.onChanged
+    this.onChanged,
+    this.keyboard = TextInputType.text,
+    this.autovalidateMode = AutovalidateMode.always,
+    this.validator
   });
 
   @override
@@ -20,10 +26,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Row(
       children: [
         Expanded(
-          child: TextField(
+          child: TextFormField(
+            keyboardType: this.widget.keyboard,
+            autovalidateMode: this.widget.autovalidateMode,
+            validator: this.widget.validator,
             onChanged: this.widget.onChanged,
-            maxLength: 255,
-            maxLengthEnforced: true,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(8.0),

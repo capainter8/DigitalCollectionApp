@@ -7,19 +7,19 @@ import 'package:provider/provider.dart';
 import '../CustomTextField.dart';
 import '../Label.dart';
 
-class IntegerInputLine extends StatefulWidget {
+class DecimalInputLine extends StatefulWidget {
   final SchemaEntry entry;
-  IntegerInputLine(this.entry);
+  DecimalInputLine(this.entry);
 
   @override
-  _IntegerInputLineState createState() => _IntegerInputLineState();
+  _DecimalInputLineState createState() => _DecimalInputLineState();
 }
 
-class _IntegerInputLineState extends State<IntegerInputLine> {
+class _DecimalInputLineState extends State<DecimalInputLine> {
   @override
   Widget build(BuildContext context) {
     FormFieldsModel model =
-        Provider.of<FormFieldsModel>(context, listen: false);
+    Provider.of<FormFieldsModel>(context, listen: false);
 
     String labelText = this.widget.entry.name;
     if (this.widget.entry.required) {
@@ -32,18 +32,17 @@ class _IntegerInputLineState extends State<IntegerInputLine> {
         CustomTextField(
           keyboard: TextInputType.number,
           validator: (value) {
-            if (value.contains(".") ||
-                value.contains(" ") ||
+            if (value.contains(" ") ||
                 value.contains(",") ||
-                value.contains("-") ||
+                (!value.startsWith("-") && value.contains("-")) || // Fix input bug
                 value.startsWith("0")) {
-              return "Enter a valid integer";
+              return "Enter a valid decimal number";
             }
             return null;
           },
           hint: "enter " + this.widget.entry.name + "...",
           onChanged: (value) {
-            int parsed = int.tryParse(value);
+            double parsed = double.tryParse(value);
             model.setField(this.widget.entry.name, parsed);
           },
         ),

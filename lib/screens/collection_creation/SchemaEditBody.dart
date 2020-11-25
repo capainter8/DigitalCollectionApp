@@ -16,6 +16,7 @@ class _SchemaEditBodyState extends State<SchemaEditBody> {
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<CreateCollectionModel>(builder: (context, model, child) {
       return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

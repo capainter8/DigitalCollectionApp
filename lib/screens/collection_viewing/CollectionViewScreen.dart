@@ -19,13 +19,18 @@ class _ViewScreenState extends State<CollectionViewScreen> {
   _ViewScreenState();
   CollectionItemList collectionItemList;
 
+  CollectionViewerProxy proxy;
+
   @override
   Widget build(BuildContext context) {
+
     Collection collection = ModalRoute.of(context).settings.arguments;
-    CollectionViewerProxy proxy = CollectionViewerProxy(collection.name);
-    collection.addListener(() { // The proxy listens for changes in the collection
-      proxy.onCollectionChanged();
-    });
+    if (proxy == null) {
+      proxy = CollectionViewerProxy(collection.name);
+      collection.addListener(() { // The proxy listens for changes in the collection
+        proxy.onCollectionChanged();
+      });
+    }
 
     return MultiProvider(
       providers: [

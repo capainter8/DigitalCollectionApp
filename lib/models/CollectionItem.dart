@@ -2,10 +2,6 @@ import 'package:DigitalCollectionApp/models/fields/Fields.dart';
 import 'package:DigitalCollectionApp/models/Schema.dart';
 import 'dart:convert';
 
-/// CollectionItem.dart
-///
-/// To be implemented.
-
 class CollectionItem {
 
   Map<String, Field> fields;

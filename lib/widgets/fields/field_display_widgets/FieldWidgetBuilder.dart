@@ -7,6 +7,7 @@ import 'package:DigitalCollectionApp/widgets/fields/field_display_widgets/DateFi
 import 'package:flutter/material.dart';
 import '../../../models/fields/Fields.dart' as f;
 import 'DecimalFieldWidget.dart';
+import 'IntegerFieldWidget.dart';
 import 'TextFieldWidget.dart';
 
 class FieldWidgetBuilder {
@@ -27,6 +28,9 @@ class FieldWidgetBuilder {
     }
     else if (field is f.DateField) {
       return DateFieldWidget(field);
+    }
+    else if (field is f.IntegerField) {
+      return IntegerFieldWidget(field);
     }
     else {
       throw("An unimplemented field type was passed to the field widget builder.");

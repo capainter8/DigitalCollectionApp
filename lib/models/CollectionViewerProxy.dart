@@ -21,7 +21,7 @@ class CollectionViewerProxy extends ChangeNotifier {
   CollectionViewerProxy(String name) {
     collectionProxy = CollectionManager.instance.getCollection(name);
     schemaProxy = collectionProxy.schema;
-    refresh();
+    if (itemsProxy == null) refresh();
   }
 
   void refresh() {
@@ -30,10 +30,12 @@ class CollectionViewerProxy extends ChangeNotifier {
 
   void sortByField(Field f) {
     this.itemsProxy.sort((CollectionItem a, CollectionItem b) {
-      if (a.getField(f.name).value == null || b.getField(f.name).value == null) {
+      if (a.getField(f.name).value == null ||
+          b.getField(f.name).value == null ||
+          a.getField(f.name).value == "" ||
+          b.getField(f.name).value == "") {
         return 1; // Null objects at the end
-      }
-      else {
+      } else {
         return a.compareTo(b, f);
       }
     });
@@ -43,9 +45,7 @@ class CollectionViewerProxy extends ChangeNotifier {
   void searchFilter(String query) {
     refresh();
     this.itemsProxy.retainWhere((item) {
-      return item.searchBlob()
-          .toLowerCase()
-          .contains(query.toLowerCase());
+      return item.searchBlob().toLowerCase().contains(query.toLowerCase());
     });
     notifyListeners();
   }
